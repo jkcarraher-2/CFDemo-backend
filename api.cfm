@@ -1,13 +1,14 @@
 <cfscript>
     data = {
-        message: "Hello from ColdFusion API",
-        timestamp: now(),
-        version: "1.0"
+    message: "Hello from ColdFusion API",
+    timestamp: now(),
+    version: "1.0"
     };
-    
-    // Set content type
-    header("Content-Type", "application/json");
-    
-    // Output JSON
+
+    cfheader(
+        name = "Content-Type",
+        value = "application/json"
+    );
+
     writeOutput(serializeJSON(data));
 </cfscript>
