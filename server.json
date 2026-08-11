@@ -42,15 +42,7 @@
             "HTTP":{
                 "listen":"8080"
             },
-            "SSL":{
-                "listen":"8443",
-                "certFile":"/Applications/certs/localhost.crt",
-                "keyFile":"/Applications/certs/localhost.key",
-                "clientCert":{
-                    "trustUpstreamHeaders":true,
-                    "CACertFiles":"/Applications/certs/localhost.crt"
-                }
-            }
+            "SSL":false
         }
     },
     "jvm":{
@@ -64,6 +56,8 @@
             "-Dcoldfusion.searchimplicitscopes=true",
             "-Dcoldfusion.encryption.useCFMX_COMPATAsDefault=TRUE"
         ],
-        "javaHome":"/Users/chorne/commandbox-jre-darwin64-6.0.0/jre/Contents/Home"
-    }
+        "javaHome":"/Library/Java/JavaVirtualMachines/temurin-26.jdk/Contents/Home"
+    },
+    "port=8080":true,
+    "ssl=false":true
 }
