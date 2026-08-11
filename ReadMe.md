@@ -11,13 +11,17 @@ There are 3 main steps to getting setup. Building a dev env with **Coldbox**, ex
 brew install commandbox
 ```
 
-**CFSetup** -- a tool used for configuring, exporting and importing CFAdmin settings. It's already been installed with your CommandBox, all you need to do is find it.
-To find where homebrew put your CommandBox instance run:
+**CFSetup** -- a tool used for configuring, exporting and importing CFAdmin settings for your servers. The tool is located in Adobe CF installations. Make sure you install if you haven't already. The free trial install of MacOS zip should work fine. After 30 days it just reverts to the dev version which still suits our needs.
+https://www.adobe.com/products/coldfusion/download-trial/try.html
+
+Once downloaded move the "ColdFusion" folder to your root directory. Then copy the path to `/coldfusion/config/cfsetup/cfsetup.sh` and set it as an alias in your zsh:
 ```
-brew --prefix commandbox
+nano ~/.zshrc
 ```
 
-From there you can 
+```
+alias cfsetup='/Users/jkcarrah/ColdFusion/config/cfsetup/cfsetup.sh'
+```
 
 
 ## Running a local server

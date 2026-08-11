@@ -1,63 +1,10 @@
 {
-    "host":"localhost",
-    "name":"insideAdm",
-    "openBrowser":"true",
-    "openBrowserURL":"https://localhost:8443",
-    "debug":true,
-    "cfstatEnable":true,
-    "env":{},
-    "trayOptions":[
-        {
-            "label":"CFADMIN",
-            "action":"openbrowser",
-            "url":"https://localhost:8443/cfide/administrator",
-            "disabled":false,
-            "image":""
-        },
-        {
-            "label":"Open VScode",
-            "action":"runAsync",
-            "command":"code .",
-            "disabled":false,
-            "image":""
-        },
-        {
-            "label":"Open Webroot",
-            "action":"openfilesystem",
-            "path":"./",
-            "disabled":false,
-            "image":""
-        }
-    ],
     "app":{
-        "cfengine":"adobe@2023",
-        "oldcfengine":"adobe@2023.0.6.330617",
-        "freakinversions":"https://www.forgebox.io/view/adobe#versions"
+        "cfengine":"adobe@2023"
     },
     "web":{
-        "bindings":{
-            "HTTP":{
-                "listen":"8080"
-            },
-            "SSL":false
-        },
         "http":{
             "port":"8080"
         }
-    },
-    "jvm":{
-        "heapSize":2048,
-        "cfstatEnable":true,
-        "minHeapSize":256,
-        "args":[
-            "-XX:+UseG1GC",
-            "-XX:-CreateMinidumpOnCrash",
-            "--add-opens=java.base/java.net=ALL-UNNAMED",
-            "-Dcoldfusion.searchimplicitscopes=true",
-            "-Dcoldfusion.encryption.useCFMX_COMPATAsDefault=TRUE"
-        ],
-        "javaHome":"/Library/Java/JavaVirtualMachines/temurin-26.jdk/Contents/Home"
-    },
-    "port=8080":true,
-    "ssl=false":true
+    }
 }
