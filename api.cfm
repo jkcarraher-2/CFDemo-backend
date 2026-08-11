@@ -1,5 +1,4 @@
 <cfscript>
-    // Simple JSON API endpoint
     data = {
         message: "Hello from ColdFusion API",
         timestamp: now(),
@@ -7,7 +6,7 @@
     };
     
     // Set content type
-    header name="Content-Type" value="application/json";
+    header("Content-Type", "application/json");
     
     // Output JSON
     writeOutput(serializeJSON(data));

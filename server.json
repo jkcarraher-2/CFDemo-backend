@@ -34,15 +34,15 @@
         "oldcfengine":"adobe@2023.0.6.330617",
         "freakinversions":"https://www.forgebox.io/view/adobe#versions"
     },
-    "cfconfig":{
-        "file":"config.json"
-    },
     "web":{
         "bindings":{
             "HTTP":{
                 "listen":"8080"
             },
             "SSL":false
+        },
+        "http":{
+            "port":"8080"
         }
     },
     "jvm":{
