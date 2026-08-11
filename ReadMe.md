@@ -23,7 +23,6 @@ nano ~/.zshrc
 alias cfsetup='/Users/jkcarrah/ColdFusion/config/cfsetup/cfsetup.sh'
 ```
 
-
 ## Running a local server
 To start your own server run. This command should get you started from any directory
 ```
@@ -52,3 +51,14 @@ I used `/usr/libexec/java_home -v 26` to find where mines installed locally, the
 
 Cyrus' Coldbox Setup guide
 https://docs.google.com/document/d/1tb1iIiYEYiY7b7hm_s6Z-Ez623cMSGqfsD_Zskn_X_8/edit?usp=sharing
+
+
+Using U: `admin` P: `commandbox` doesn't work. 
+Most likely you've initialized this server with someone else's configuration file. In other words they changed the password and you don't know it anymore. To fix check the logs of the server you launched. Find this section:
+```
+[INFO ] Runwar: ******************************************************************************
+[INFO ] Runwar: Configuring Servlet
+[INFO ] Runwar:   Found WEB-INF: '[PATH]'
+[INFO ] Runwar: ******************************************************************************
+```
+Find the file at this `[Path]` and delete it.
