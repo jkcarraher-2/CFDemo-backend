@@ -39,7 +39,7 @@ U: `admin` P: `commandbox`
 
 ## Bugs
 
-Running `box server start --port=8080` gives the following error:
+Bug: Running `box server start --port=8080` gives the following error:
 ```
 nohup: /Users/chorne/commandbox-jre-darwin64-6.0.0/jre/Contents/Home/bin/java: No such file or directory
 ```
@@ -47,13 +47,7 @@ English: CommandBox doesn't know where you installed Java (I used Homebrew). So 
 https://commandbox.ortusbooks.com/embedded-server/configuring-your-server
 I used `/usr/libexec/java_home -v 26` to find where mines installed locally, then I updated the server.json
 
-## Useful Links
-
-Cyrus' Coldbox Setup guide
-https://docs.google.com/document/d/1tb1iIiYEYiY7b7hm_s6Z-Ez623cMSGqfsD_Zskn_X_8/edit?usp=sharing
-
-
-Using U: `admin` P: `commandbox` doesn't work. 
+Bug: Using U: `admin` P: `commandbox` doesn't work. 
 Most likely you've initialized this server with someone else's configuration file. In other words they changed the password and you don't know it anymore. To fix check the logs of the server you launched. Find this section:
 ```
 [INFO ] Runwar: ******************************************************************************
@@ -62,3 +56,25 @@ Most likely you've initialized this server with someone else's configuration fil
 [INFO ] Runwar: ******************************************************************************
 ```
 Find the file at this `[Path]` and delete it.
+
+Bug: Upgrading to 2025 version then downgrading back to 2023 yields the following error:
+```
+[ERROR] Exception in thread "main" 
+[ERROR] java.lang.NoClassDefFoundError: javax/servlet/Servlet
+[ERROR]         at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+...
+```
+Fix by checking the logs of the server you launched. Find this section:
+```
+[INFO ] Runwar: ******************************************************************************
+[INFO ] Runwar: Configuring Servlet
+[INFO ] Runwar:   Found WEB-INF: '[PATH]'
+[INFO ] Runwar: ******************************************************************************
+```
+Find the file at this `[Path]` and delete it.
+
+
+## Useful Links
+
+Cyrus' Coldbox Setup guide
+https://docs.google.com/document/d/1tb1iIiYEYiY7b7hm_s6Z-Ez623cMSGqfsD_Zskn_X_8/edit?usp=sharing

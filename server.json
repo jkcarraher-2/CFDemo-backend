@@ -1,6 +1,7 @@
 {
     "app":{
-        "cfengine":"adobe@2023"
+        "cfengine":"adobe@2023",
+        "libDirs":"java_lib"
     },
     "web":{
         "http":{

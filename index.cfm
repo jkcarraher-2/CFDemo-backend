@@ -1,1 +1,3 @@
-<cfoutput>Hello from ColdFusion! Current time: #now()#</cfoutput>
+<cfoutput>
+    Hello from ColdFusion! Current time: #now()#
+</cfoutput>

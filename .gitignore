@@ -1,0 +1,6 @@
+# JAR files
+*.jar
+
+# Or more specifically:
+lib/*.jar
+*.jar
