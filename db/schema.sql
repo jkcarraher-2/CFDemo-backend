@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `kerberose` TEXT NOT NULL UNIQUE,
+    `kerberos` TEXT NOT NULL UNIQUE,
     `email` TEXT NOT NULL UNIQUE,
     `first_name` TEXT NOT NULL,
     `last_name` TEXT NOT NULL,
