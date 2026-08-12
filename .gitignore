@@ -1,6 +1,5 @@
-# JAR files
-*.jar
+# Ignore all custom jar files
+java_lib/*.jar
 
-# Or more specifically:
-lib/*.jar
-*.jar
+# Don't push db files
+*.db

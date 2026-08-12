@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `kerberose` TEXT NOT NULL UNIQUE,
+    `email` TEXT NOT NULL UNIQUE,
+    `first_name` TEXT NOT NULL,
+    `last_name` TEXT NOT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `classes` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `name` TEXT NOT NULL UNIQUE,
+    `description` TEXT,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `enrollments` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `user_id` INTEGER NOT NULL,
+    `class_id` INTEGER NOT NULL,
+    `enrolled_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+    FOREIGN KEY (`class_id`) REFERENCES `classes`(`id`)
+)

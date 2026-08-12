@@ -34,3 +34,6 @@ Leave the Username and Password fields blank for sqlite. If all goes to plan thi
     }
 </cfscript>
 ```
+
+Next I'm linking our index.cfm to the SQLite Database and creating tables on start with a `Application.cfc` file
+https://modern-cfml.ortusbooks.com/beyond-the-100/applicationcfc
