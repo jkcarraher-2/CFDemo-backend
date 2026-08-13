@@ -210,6 +210,27 @@ I had AI write me up this diagnostic tool to help me debug if my API was discove
     </cfscript>
 ```
 
-After chatting with Cyrus, I was able to figure out that at least `http://localhost:8080/api/users.cfc?method=createUser` enabled me test my endpoints. However this was without using the RESTFUL Web service configuration in CFAdmin.
+After chatting with Cyrus, I was able to figure out that at least `http://localhost:8080/api/users.cfc?method=createUser` enabled me test my endpoints. However this was without using the RESTFUL Web service configuration in CFAdmin. Meaning that I was physically accessing the `users.cfc` file. 
 
-Added Debugger Package
+Added Debugger Package but RESTPlay was unable to be launched with commandbox.
+
+In order to get my REST API accessible, I kept the same config detailed previously. 
+```
+Root Path: [PATH_TO_api_DIRECTORY]
+Host[:Port]: localhost:8080
+Service Mapping: api
+Update REST Path: rest
+```
+
+This did however require some `commandbox` specific configuration to my `server.json`. Running this command or adding 
+```
+{
+    "app":{
+        "restMappings":"/rest/*,/api/*"
+    },
+}
+```
+to my server.json allows Commandbox to communicate with the REST Serverlet so the endpoints in `/api/` actually work. 
+https://commandbox.ortusbooks.com/embedded-server/configuring-your-server/rest-servlet
+
+Now my endpoint is accessibile at `http://localhost:8080/rest/api/users/create`
