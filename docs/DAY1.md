@@ -37,3 +37,10 @@ Leave the Username and Password fields blank for sqlite. If all goes to plan thi
 
 Next I'm linking our index.cfm to the SQLite Database and creating tables on start with a `Application.cfc` file
 https://modern-cfml.ortusbooks.com/beyond-the-100/applicationcfc
+Note that code written in the `onApplicationStart()` function defined in `Application.cfc` executes once when "the application is initalized".
+https://modern-cfml.ortusbooks.com/beyond-the-100/applicationcfc
+
+I've written a basic piece of code that executes all the statements in `db/schema.sql` (initalizes our sql tables for the app's db file) on application start.
+
+Once this is complete, we should set up a basic REST api to add / remove entries to the database. I've created `/api/` directory to store logic for each endpoint. Then created a `users.cfc` for the `/users` endpoints. Yet these endpoints are not immediately discoverable. 
+https://github.com/sandeep-141297/coldfusion-rest-api-crud

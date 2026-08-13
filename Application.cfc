@@ -2,14 +2,6 @@ component {
     this.name = "CFDemo";
     this.datasource = "sqlite";
 
-    this.restSettings = {
-        restEnabled = true,
-        autoRegister = true,
-        cfclocation = expandPath("./api"),
-        serviceMapping = "api",
-        useHost = false
-    };
-
     // This code runs one time when App STARTS
     function onApplicationStart() {
         initalizeDatabase();
