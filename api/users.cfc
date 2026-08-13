@@ -4,7 +4,7 @@
         access="remote"
         returnType="string"
         httpMethod="GET"
-        restPath="">
+        restPath="test">
 
         <cfreturn "SUCCESS">
 
