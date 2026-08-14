@@ -3,3 +3,5 @@ java_lib/*.jar
 
 # Don't push db files
 *.db
+
+*.DS_Store
