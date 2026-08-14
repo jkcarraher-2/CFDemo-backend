@@ -22,17 +22,23 @@
 
             <cfquery name="qClass" datasource="sqlite">
                 INSERT INTO classes (
-                    name,
-                    description
-                    )
+                    subject_code,
+                    course_number,
+                    title,
+                    description,
+                    units
+                )
                 VALUES (
-                    <cfqueryparam value="#body.name#" cfsqltype="cf_sql_varchar">,
-                    <cfqueryparam value="#body.description#" cfsqltype="cf_sql_varchar">
+                    <cfqueryparam value="#body.subject_code#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#body.course_number#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#body.title#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#body.description#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#body.units#" cfsqltype="cf_sql_integer">
                 )
             </cfquery>
 
             <cfquery name="qNewClass" datasource="sqlite">
-                SELECT id, name, description
+                SELECT id, subject_code, course_number, title, description, units
                 FROM classes
                 WHERE id = last_insert_rowid()
             </cfquery>
@@ -43,8 +49,11 @@
             })>
             <cfreturn {
                 "id": qNewClass.id,
-                "name": qNewClass.name,
-                "description": qNewClass.description
+                "subject_code": qNewClass.subject_code,
+                "course_number": qNewClass.course_number,
+                "title": qNewClass.title,
+                "description": qNewClass.description,
+                "units": qNewClass.units
             }>
 
             <cfcatch>

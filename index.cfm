@@ -2,11 +2,13 @@
     SELECT * 
     FROM users
 </cfquery>
+<cfquery name="getClasses" datasource="sqlite">
+    SELECT * 
+    FROM classes
+</cfquery>
 
 <cfoutput>
     Hello from ColdFusion! Current time: #now()#<br>
     Number of users: #getUsers.recordCount#<br>
-    <cfloop query="getUsers">
-        #first_name# #last_name#: #email#<br>
-    </cfloop>
+    Number of classes: #getClasses.recordCount#
 </cfoutput>
