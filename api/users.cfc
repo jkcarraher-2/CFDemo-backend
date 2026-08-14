@@ -9,6 +9,45 @@
         <cfreturn "Connected to users endpoint">
     </cffunction>
 
+    <!--- GET ALL --->
+    <cffunction
+        name="getUsers"
+        access="remote"
+        returntype="string"
+        httpMethod="GET"
+        restPath=""
+        produces="application/json">
+        <cftry>
+            <cfquery name="qUsers" datasource="sqlite">
+                SELECT
+                    id,
+                    kerberos,
+                    email,
+                    first_name,
+                    last_name
+                FROM users
+                ORDER BY id
+            </cfquery>
+
+            <cfset var users = []>
+            <cfloop query="qUsers">
+                <cfset arrayAppend(users, {
+                    "id": qUsers.id,
+                    "kerberos": qUsers.kerberos,
+                    "first_name": qUsers.first_name,
+                    "last_name": qUsers.last_name
+                })>
+            </cfloop>
+
+            <cfreturn serializeJSON(users)>
+
+            <cfcatch>
+                <cfreturn { "error": cfcatch.message, "detail": cfcatch.detail }>
+            </cfcatch>
+        </cftry>
+    </cffunction>
+
+    <!--- CREATE --->
     <cffunction
         name="createUser"
         access="remote"
@@ -64,4 +103,3 @@
     </cffunction>
 
 </cfcomponent>
-
