@@ -6,8 +6,7 @@
         httpMethod="GET"
         restPath="test">
 
-        <cfreturn "SUCCESS">
-
+        <cfreturn "Connected to users endpoint">
     </cffunction>
 
     <cffunction
@@ -41,6 +40,10 @@
                 WHERE id = last_insert_rowid()
             </cfquery>
 
+            <!--- SUCCESS --->
+            <cfset restSetResponse({
+                status=201
+            })>
             <cfreturn {
                 "id": qNewUser.id,
                 "kerberos": qNewUser.kerberos,
@@ -48,7 +51,12 @@
                 "first_name": qNewUser.first_name,
                 "last_name": qNewUser.last_name
             }>
+
             <cfcatch>
+                <!--- ERROR --->
+                <cfset restSetResponse({
+                    status = 500
+                })>
                 <cfreturn { error = true, message = cfcatch.message, detail=cfcatch.detail }>
             </cfcatch>
         </cftry>
