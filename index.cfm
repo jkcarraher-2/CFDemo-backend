@@ -1,14 +1,33 @@
-<cfquery name="getUsers" datasource="sqlite">
-    SELECT * 
-    FROM users
-</cfquery>
-<cfquery name="getClasses" datasource="sqlite">
-    SELECT * 
-    FROM classes
-</cfquery>
+<cfscript>
+    path = cgi.path_info;
+    path = reReplace(path, "/$", "");
 
-<cfoutput>
-    Hello from ColdFusion! Current time: #now()#<br>
-    Number of users: #getUsers.recordCount#<br>
-    Number of classes: #getClasses.recordCount#
-</cfoutput>
+    if (path == "") {
+        path = "/";
+    }
+
+    userController = new controllers.UserController();
+
+    // GET /users
+    if (path == "/users") {
+        userController.index();
+    }
+
+    // GET /users/123
+    else if (reFind("^/users/[0-9]+$", path)) {
+        userId = listLast(path, "/");
+        userController.show(
+            id = val(userId)
+        );
+    }
+
+    //404
+    else {
+        cfheader(
+            statuscode = 404,
+            statustext = "Not Found"
+        );
+        writeOutput("<h1>404 - Page Not Found</h1>");
+    }
+
+</cfscript>

@@ -11,7 +11,7 @@
 
     <!--- GET ALL --->
     <cffunction
-        name="getUsers"
+        name="getAllUsers"
         access="remote"
         returntype="string"
         httpMethod="GET"

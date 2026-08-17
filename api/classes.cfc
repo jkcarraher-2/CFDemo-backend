@@ -10,6 +10,42 @@
 
     </cffunction>
 
+    <!--- GET ALL --->
+    <cffunction
+        name="getAllClasses"
+        access="remote"
+        returntype="string"
+        httpMethod="GET"
+        restPath=""
+        produces="application/json"
+    >
+        <cftry>
+            <cfquery name="qClasses" datasource="sqlite">
+                SELECT id, subject_code, course_number, title, description, units 
+                FROM classes
+                ORDER BY id
+            </cfquery>
+
+            <cfset classes = []>
+
+            <cfloop query="qClasses">
+                <cfset arrayAppend(classes, {
+                    "id": qClasses.id,
+                    "subject_code": qClasses.subject_code,
+                    "course_number": qClasses.course_number,
+                    "title": qClasses.title,
+                    "description": qClasses.description
+                })>
+            </cfloop>
+
+            <cfreturn serializeJSON(classes)>
+            <cfcatch>
+                 <cfreturn { "error": cfcatch.message, "detail": cfcatch.detail }>
+            </cfcatch>
+        </cftry>
+    </cffunction>
+
+    <!--- CREATE --->
     <cffunction
         name="createClass"
         access="remote"
