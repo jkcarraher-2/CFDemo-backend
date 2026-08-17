@@ -8,8 +8,8 @@
         "http":{
             "port":"8080"
         },
-        "rewrites": {
-            "enable": true
+        "rewrites":{
+            "enable":true
         }
     }
 }
