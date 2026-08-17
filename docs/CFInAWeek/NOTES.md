@@ -115,3 +115,94 @@ To loop over a query use the following code:
     #qUsers.Name# - #qUsers.username# <br>
 </cfloop>
 ```
+
+### Commenting
+Generally use comments to describe intent and give context to code. Program code explains HOW, but proper comments explain WHY.
+
+### CFScript vs CFTag
+There are 2 equal ways to write CF Code: CFScript notation and CFTag notation. The choice is often team specfic.
+
+## Decision Making & Scopes
+### Decision Making
+This is how to create if / elif / else statements:
+```
+<cfif expression>
+    ..Markup..
+<cfelseif another_expression>
+    ..More Markup..
+<cfelse>
+    ..More Markup..
+</cfif>
+// OR
+<cfscript>
+    if ( myValue == 'ColdFusion' ) {
+        ..code..
+    } else if ( myValue != '.NET' ) {
+        x = 277;
+    } else {
+        ..code..
+    }
+</cfscript>
+```
+Where an expression is any value that will evaluate to Boolean. Note that using cfscript means code will read similarly to Javascript.
+
+Boolean operators look like this:
+```
+AND / &&
+OR / ||
+NOT / !
+XOR, EQV
+IMP - implication
+```
+```
+<cfif structKeyExists( myStruct, 'age' ) AND myStruct.age LTE 7>
+    ..code..
+</cfif>
+
+<cfscript>
+    if ( structKeyExists( myStruct, 'age' ) && myStruct.age <= 7 ) {
+        ..code..
+    }
+</cfscript>
+```
+Note that evaluation runs from left to right. Statements can be joined together. You can also use parenthesis to control evaluation of expressions similar to JS/TS.
+
+There is also a way to make switch statments:
+```
+<cfswitch expression="#myVar#">
+    <cfcase value="1">
+        ..code..
+    </cfcase>
+    <cfcase value="9,10" >
+        ..code..
+    </cfcase>
+    <cfdefaultcase>
+        ..finally..
+    </cfdefaultcase>
+</cfswitch>
+// or
+switch ( myVar ) {
+    case 1:
+        writeOutput( 'Value was 1' );
+        break;
+    case 9:
+        writeOutput( 'Value was 9' );
+        break;
+    default:
+        writeOutput( 'Value was not 1 or 9' );
+}
+```
+
+Also offered are `ternary` operations. This a shorthand way to assign a value conditionally if you have 2 possible outputs. Here's how:
+```
+x = ( myVar == 1 ) ? 1 : 277
+```
+
+### Scopes
+To be honest a lot of this went over my head. Please reference the section to get a better idea of what's going on here.
+
+This seems to more or less be a store option. When you want to access parameters for a function or variable,,, especially things that are cross file you can use scopes. 
+
+## Data Handling
+### Databases
+To connect to a database you must first configure the DataSource in administrator. 
