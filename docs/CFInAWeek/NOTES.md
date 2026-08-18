@@ -1,4 +1,9 @@
 # CF in a week takeaways / Notes
+## Questions for Phil
+1. How does our team prevent SQL injections and other security vulnerabilities?
+
+2. 
+
 ## Basics
 ### What is Coldfusion
 It's selling point is:
@@ -206,3 +211,241 @@ This seems to more or less be a store option. When you want to access parameters
 ## Data Handling
 ### Databases
 To connect to a database you must first configure the DataSource in administrator. 
+Here is some basic syntax for a query:
+```
+// script notation
+<cfscript>
+    myquery = QueryExecute('SELECT * FROM artists', [], {datasource = 'cfartgallery'});
+</cfscript>
+
+// tag notation
+<cfquery name="myQuery" datasource="cfartgallery">
+    SELECT * FROM artists
+</cfquery>
+```
+
+When we want to print out queries we can do so by accessing query info with the functions mentioned in the `Query` datatype defined above.
+```
+<cfoutput query="myQuery">
+    #myquery.CurrentRow# - #myquery.email# - #myquery.firstname# - #myquery.lastname#<br>
+</cfoutput>
+```
+
+If you're looking to use query data without printing it out immediately you can store it into an array.
+```
+<cfset artistArray = []>
+<cfloop query="myQuery">
+    <cfset arrayappend(artistArray, myquery.lastname & ', ' & myQuery.firstname)>
+</cfloop>
+```
+
+It's also possible to group `cfouts` if you want to group queries together based on their values and only print the group-selecting value once. Here is a layered example.
+```
+<cfset myquery = QueryExecute(' SELECT * FROM art ORDER BY issold', [], {datasource = 'cfartgallery'})>
+
+<cfoutput Query="myQuery" group="issold">
+    <p>
+        Sold ?: #YesNoFormat(myQuery.issold)#:<br>
+        <blockquote>
+            <cfoutput>
+                #myQuery.artname#: #DollarFormat(myQuery.price)#<br>
+            </cfoutput>
+        </blockquote>
+    </p>
+    <hr>
+</cfoutput>
+``` 
+
+To prevent cfquery from being vulnerable to sql-injection you must utilize `cfqueryparam` in all your queries. Here is how to do that in script & tag:
+```
+// script
+<cfscript>
+    myquery = QueryExecute ("select * from Artists where firstname=?", ["#form.name#"], {datasource="cfartgallery"});;
+</cfscript>
+
+// tags
+<cfquery name="myQuery" datasource="cfartgallery">
+    SELECT * FROM artists
+    WHERE firstname = <cfqueryparam value="#form.name#" cfsqltype="cf_sql_varchar">
+</cfquery>
+```
+
+To cache a query we can use the `cachedwithin` parameter for our cfquery which we pass in a timespan for the cached value to expire.
+
+If we want our queries to be dynamic, tags like `if / else` can be used within `cfquery`.
+
+Result counts can be limited with the `maxrows` param to `cfout` or `cfquery`.. whichever you prefer.
+
+To get the ID of an object after you add it to a table, most folks just get the id of the most recently inserted item. However this can prove problematic and a better alternative is leverdging the `result` attribute of cfquery.
+```
+// script
+<cfscript>
+    QueryExecute(
+        'INSERT INTO art ( artistsID, artName, description, isSold, largeImage, mediaID, price ) VALUES ( ?,?,?,?,?,?,? )',
+        [ 1, 'test item', 'test desc', 1, 'img.png', 1, 1 ],
+        { datasource = 'cfartgallery', result="qryResult" }
+    );
+</cfscript>
+
+// tags
+<cfquery result="qryResult" datasource="cfartgallery">
+    INSERT INTO art
+    (
+        artistsID, artName, description, isSold, largeImage, mediaID, price
+    )
+    VALUES
+    (
+        <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="1">,
+        <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="Test Item">,
+        <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="Test Desc">,
+        <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="1">,
+        <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="img.png">,
+        <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="1">,
+        <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="1">
+    )
+</cfquery>
+
+<cfdump var="#qryResult#">
+```
+
+### XML
+Support for manipulating XML documents is very straightforward and supported. 
+
+Files can be read as so:
+```
+<cfset mydoc = XmlParse(ExpandPath("./order.xml"))>
+```
+
+Can be created using the `cfxml tag like this:
+```
+<cfset getdata = QueryExecute('SELECT ARTISTID, ARTID, ARTNAME, DESCRIPTION, ISSOLD, PRICE, LARGEIMAGE FROM artists where artistid = ?', [1], {datasource = 'cfartgallery'});
+
+<!---Process the query result and generate xml--->
+<cfxml variable="artxml">
+    <art artistid="<cfoutput>#getdata.artistid#</cfoutput>">
+        <cfoutput query="getData">
+            <piece id="#getData.artid#" available="#getdata.isSOLD#">
+                <artname>#getData.artname#</artname>
+                <description>#getData.artNAME#</description>
+                <image>#getData.LARGEIMAGE#</image>
+                <price>#getData.PRICE#</price>
+            </piece>
+        </cfoutput>
+    </art>
+</cfxml>
+```
+
+To then write this xml to a file you can use filewrite:
+```
+<cfset filewrite("#expandpath('./out.xml')#", artxml)>
+```
+
+If you need to physically parse the xml in a document, use the powerful `xmlParse()` function. Note that there is a nuance on how to access depending on if you turn on case sensitivity or not. Turning it off seems to give simpiler syntax. 
+
+Most of the XML stuff I'm not familliar with cause I haven't used XML before.
+
+### JSON
+Creating JSON is as simple as defining a struct and converting it to a JSON object.
+
+e.g.
+```
+<cfset myStruct = {
+    items: {
+        item1:  {name: 'something', price: 1000},
+        item2:  {name: 'something else', price: 12.50},
+        item3:  {name: 'something more', price: "1,240.10"}
+    },
+    users: {
+        user1:  {id: 1, email: 'none@none.net'},
+        user2:  {id: 2, email: 'none@none.net'},
+        user3:  {id: 3, email: 'none@none.net'}
+    }
+}>
+
+<cfset myJsonVar = serializeJSON(myStruct)>
+```
+
+By default case is not maintained in this format, but if we define the struct instead with strings case will be maintained.
+
+```
+"items": {
+    "item1":    {name: 'something', price: 1000},
+    "item2":    {name: 'something else', price: 12.50},
+    "item3":    {name: 'something more', price: "1,240.10"}
+}
+```
+
+The reverse (turning JSON into struct) can be done too.
+```
+<cfset myJsonStruct = deserializeJSON(myJsonVar)>
+```
+
+We can also validate an object is in proper JSON format with the following syntax:
+```
+<cfdump var="#isJson(myJsonVar)#">
+```
+
+## Code Reuse
+### Functions
+CF supports making your own custom tags?
+
+To write your own function do so like this:
+```
+<cfscript>
+public void function myFunction() {
+    // Function content
+}
+</cfscript>
+```
+
+Arguments are defined like this:
+```
+<cfscript>
+    public void function getFullName(
+        required string firstName = '',
+        required string lastName = ''
+    ){
+        // arguments are accessed like this with the arguments namespace
+        var fullName = arguments.firstName & ' ' & arguments.lastName;
+    }
+</cfscript>
+```
+NOTE: We must put var in front of the variable to make sure it's scope is confined to the function.
+
+Functions can be called in 2 ways, with the parameter names mentioned and not.
+```
+// Mentioned
+<cfset fullName = getFullName( firstName='Matt', lastName='Gifford' )>
+
+// Not mentioned
+<cfset fullName = getFullName( 'Matt', 'Gifford' )>
+```
+
+You can also pass arguments through a function (parameter drilling ? )
+```
+<cfscript>
+public string function getGreeting(
+    string firstName = '',
+    string lastName  = ''
+){
+    var fullName = getFullName( argumentCollection = arguments );
+    // We can do more with the fullName variable here
+}
+</cfscript>
+```
+
+If you want to define a group of functions do so in a `.cfm` page. 
+
+### Includes
+Once you make a new `.cfm` file you can start using this file as a function library. To utilize this, you must use the `cfinclude` tag on any pages that might need it.
+```
+// Tag
+<cfinclude template="path/to/libraries/greetingCustomizer.cfm">
+
+// Script
+include "path/to/libraries/greetingCustomizer.cfm";
+```
+This essentially embeds the CFML code into the file you include with. 
+
+### Custom Tags
+For displaying re-usable code 
