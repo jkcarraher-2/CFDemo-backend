@@ -740,6 +740,42 @@ Functionality is described in the document.
 This allows you to generate / manipulate pdf forms. 
 
 ### File Manipulation
+Files must be uploaded via form using the `cffile` tag. It offers a number of different actions that can be performed.
+```
+<cffile
+    action="upload"
+    destination="/Users/simon/Sites/aSite/files/"
+    filefield="aFile"
+    nameconflict="makeunique"
+    accept="image/png"
+    result="fileUploadResult" />
+```
+That `fileUploadResult` object holds a bunch of metadata reguarding the successfully uploaded file.
 
+Keep in mind that it's generally not a good idea from a security perspective to upload files into the same working dir as the server. "ColdFusion makes this process easier by providing a temporary directory that can not be accessed via the web and is periodically purged of old files. Calling the function getTempDirectory will return the location of the temporary directory. You can then upload your file to this location, then use the result struct to get the file location and filename."
+
+It's also good to leverdge `expandpath` when defining the paths of files we're manipulating.
+
+Note that we can use `cfdirectory` when manipulating directories where files may be.
+
+### Image Manipulation
+The most useful functions are those that scale and crop images. 
+For example of you want to scale an image:
+```
+ImageScaleToFit(imageObj,150,200);
+```
+
+If we want to maintain the proportions of one dimension we can leave the other param blank
+```
+ImageScaleToFit(imageObj,100,'');
+```
+
+Here is what croping looks like
+```
+ImageCrop(imageObj,20,10,150,200);
+```
+There is also functionality to create new images, draw on them, and get their information.
+
+### Spreadsheets
 
 ## Caching
