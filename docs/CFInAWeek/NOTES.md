@@ -1,8 +1,7 @@
 # CF in a week takeaways / Notes
 ## Questions for Phil
 1. How does our team prevent SQL injections and other security vulnerabilities?
-
-2. 
+2. What framework do admissions applications use? I see Framework-1 (MVC) and ColdBox (HMVC)
 
 ## Basics
 ### What is Coldfusion
@@ -611,3 +610,136 @@ this.mappings = {
 this.datasource = "my_datasource";
 ```
 ## OOP
+There are 2 main popular frameworks in Coldfusion. 
+1. Framework-One (MVC)
+2. ColdBox (HMVC)
+
+A class is simpily a CFC. A component defines a set of public/private methods (functions) and can have public and private data.
+
+Transient instances are ones where you create, use then throw away once done. 
+Singleton instances are ones which live beyond the life of the request that created it.
+
+Types of objects:
+1. bean - an object used to hold data and provide methods for working with that data. It's the same thing as a class, just representing something IRL.
+2. services - performs tasks on/for beans.
+3. controllers - recieves requests and decides what should happen / coordinates services/models and manages what responses/views get returned.
+4. views - display data to user / collect data for them / allow them to navigate data.
+
+## ORM
+ORM's allow you to work with objects and save them to the database automatically. Simplifies the CRUD process.
+
+Setup is as simple as setting a datasocurce in Application.cfc and setting ormEnabled to true.
+
+An "Entity" is a class that maps to a single db table. The idea is that it's an OBJECT that MAPS to the DB object.
+
+You must first configure within Application.cfc where all the models you want to use are. All the cfc components that are marked with `persistent = true` are created as tables.
+```
+this.ormSettings = {
+    cfclocation = [
+        "model",
+        "modules/users/model",
+        "modules/orders/model"
+    ]
+};
+```
+
+Foreign keys are easily defined:
+```
+component persistent="true" table="ARTISTS" {
+    property name="id" column="ARTISTID" fieldtype="id" generator="increment";
+    property name="firstname" ormtype="string";
+    property name="lastname" ormtype="string";
+
+    property name="art" fieldtype="one-to-many" cfc="art" fkcolumn="ARTISTID" cascade="delete";
+
+}
+```
+
+One of the benefits of using an orm is simplified querying:
+```
+<cfset artists = entityLoad( "artist", { firstname: "Jeff" }, "lastname" )>
+```
+Will return an array of objects where the artist's name is Jeff.
+
+We can leverdge the foreign key to simpily print out children of this one-to-many relationship:
+```
+<cfoutput>
+    <cfloop array="#artists#" index="artist">
+        <h4>#artist.firstName# #artist.lastname# #artist.id#</h4>
+        <cfif artist.hasArt()>
+            <ul>
+                <cfloop array="#artist.getArt()#" index="art">
+                    <li>#art.name# #dollarFormat( art.price )#</li>
+                </cfloop>
+            </ul>
+        </cfif>
+    </cfloop>
+</cfoutput>
+```
+Notice how we are technically only looping over artists, but if there is art here, we `cfloop` over a list of art with a default getter.
+
+Random -- but we can also use the `serializeJSON( artist )` function to turn entities into JSON.
+
+To add a Record we use the `entityNew` function with the first arg being entity name and 2nd being a structure of data. Then call `entitySave`.
+```
+transaction {
+    art = entityNew( "art", { name : "Painting of TV", price : 200, isSold : false } );
+    entitySave( art );
+
+    artist = entityNew( "artist", { firstname : "John", lastname : "Doe" } );
+    artist.addArt( art );
+
+    entitySave( artist );
+}
+```
+
+To update a record we retrieve a SINGLE object (by it's unique signature). Then any value changed will be saved to the database.
+```
+transaction {
+    artist = entityLoad( "artist", 100, true );
+    artist.firstname = "Fred";
+}
+```
+
+To delete we use entityDelete
+```
+transaction {
+    artist = entityLoad( "artist", 100, true );
+    entityDelete( artist );
+}
+```
+
+Final note -- we should be calling ormReload() at the beginning of onRequestStart function of Application.cfc in order apply entity configuration changes.
+
+## Mail
+
+I skimmed through this, leaving a note to read it over if I ever actually use this.
+
+## Document Handling
+
+### cfhttp
+A simple way to make an http call is below:
+```
+<cfhttp url="http://cfmumbojumbo.com" method="get" />
+<cfdump var="#cfhttp#" />
+```
+
+Additional parameters are described in the doc.
+
+### cfdocument
+Used to create PDFs. Note that it only supports up to HTML 4.01 . 
+
+Similar to above, additional functionality is described in the section.
+
+### cfpdf
+Used to read a PDF, write meta-data to it, merge PDFs together, delete pages, create thumbnails of pages, extract text and images, add / remove watermarks, manipulate headers / footers, create PDF portfolios  and deal with PDF passwords, permissions and Encryption.
+
+Functionality is described in the document.
+
+### cfpdf
+This allows you to generate / manipulate pdf forms. 
+
+### File Manipulation
+
+
+## Caching
