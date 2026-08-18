@@ -448,4 +448,166 @@ include "path/to/libraries/greetingCustomizer.cfm";
 This essentially embeds the CFML code into the file you include with. 
 
 ### Custom Tags
-For displaying re-usable code 
+For displaying re-usable code for the frontend.
+
+There are 2 times when code can be executed within a custom tag called "execution modes". They can either be "start" or "end". To explicitly define, use the following code.
+```
+// script notation
+if (thisTag.executionMode == "start") {
+    // opening tag execution
+}
+else if (thisTag.executionMode == "end") {
+    // closing tag execution
+}
+
+// tag notation
+<cfif thisTag.executionMode == "start">
+    <!--- Runs when <myTag> is encountered --->
+    <p>Before the body</p>
+</cfif>
+
+<cfif thisTag.executionMode == "end">
+    <!--- Runs when </myTag> is encountered --->
+    <p>After the body</p>
+</cfif>
+```
+
+Note: This is useful when we're wrapping other tags.
+
+To import tags we've created we can use `cfimport`
+```
+<cfimport prefix='display' taglib='/path/to/tags">
+
+<display:greeting firstName="Matt" lastName="Gifford">
+```
+
+"
+You can also use cfimport to bring multiple tags into your page, and put them in their own namespace. The tag takes only two arguments:
+- prefix: This argument contains the prefix that the developer will use to reference the tag. This will replace the standard "cf_"
+- taglib: This is the path to the tag library, relative to the web root.
+"
+
+### Components
+A more modern replacement to `cfinclude` is `componets`. A component behaves like a class; it's defined in `.cfc` files.
+
+CFC files are wrapped with a `component` tag like below:
+```
+component {
+    public string function getFullName(
+        required string firstName,
+        required string lastName
+    ){
+        var fullName = arguments.firstName & ' ' & arguments.lastName;
+        return fullName;
+    }
+
+    public string function getGreeting(
+        required string firstName,
+        required string lastName
+    ){
+        var fullName = getFullName( argumentCollection = arguments );
+        var greeting = "Hello, " & fullName;
+
+        return greeting;
+    }
+}
+```
+
+Components can also have properties like classes in OOP.
+```
+component accessors="true" {
+    property name="baseGreeting" type="string" default="Hello, ";
+
+    public function init(
+        string baseGreeting = variables.baseGreeting
+    ){
+        setBaseGreeting( arguments.baseGreeting );
+        return this;
+    }
+
+    public string function getFullName(
+        required string firstName,
+        required string lastName
+    ){
+        var fullName = arguments.firstName & ' ' & arguments.lastName;
+        return fullName;
+    }
+
+    public string function getGreeting(
+        required string firstName,
+        required string lastName,
+        string baseGreeting = getBaseGreeting()
+    ){
+        var fullName = getFullName( argumentCollection = arguments );
+        var greeting = arguments.baseGreeting & fullName;
+
+        return greeting;
+    }
+}
+```
+NOTE: The accessors="true" will auto create explicity accessors (getters and setters) for properties we define. The init function will set the basegreeting to anything we pass into it or the default value
+
+In order to actually use the component we created we must use `createObject()`. The `invoke` method is to call public methods in the component.
+```
+<cfscript>
+objGreeting = createObject( 'component', 'path.to.component.Greeting' );
+
+myGreeting = invoke( objGreeting, 'getGreeting', {
+    firstName    = 'Matt',
+    lastName     = 'Gifford',
+    baseGreeting = 'Welcome, '
+} );
+
+writeOutput( myGreeting );
+</cfscript>
+```
+
+This can be done more simpily 
+```
+<cfset objGreeting = CreateObject( "Component", "path.to.component.Greeting" ).init()>
+// Or override the base greeting
+<cfset objGreeting = CreateObject( "Component", "path.to.component.Greeting" ).init( baseGreeting = 'Hola, ' )>
+```
+
+All together it looks like this:
+```
+// Create Object
+<cfset objGreeting = CreateObject( "Component", "path.to.component.Greeting" ).init()>
+// Call Getter from object
+<cfset myGreeting  = objGreeting.getGreeting( firstName = "Matt", lastName = "Gifford" )>
+// Use object value that has been assigned to a variable
+<cfoutput>
+    #myGreeting#
+</cfoutput>
+```
+
+## Application.cfc
+
+For CF applications there are several events who's behavior can be customized with the following functions defined in the Application.cfc file defined in your root.
+1. onApplicationStart - The first time the application is used (think on reboot). Use for application config, caches.
+2. onSessionStart - Any time a user makes a request to the application for the first time, or they've been using it long enough for session to expire.
+3. onRequestStart - Code ran before every request, allowing variables to be set that are accessibile on every page in the site or for auth/verification.
+4. onRequest - Similar to `onRequestStart`, but happens after. Also syntatically it gets the page that is requested as an argument.
+5. onRequestEnd - Broadcased once a request gives control back to CF.
+6. onSessionEnd - As suggested, this code runs once a session expires.
+7. onApplicationend - Runs when an application times out or CF is shutting down.
+8. onError - Last line of defense against errors that are left uncaught.
+
+`onSessionEnd` gets passed 2 arguments SessionScope, and ApplicationScope. They are copies of the scopes. 
+`onApplicationEnd` gets a copy of ApplicationScope too.
+`onError` gets 2 arguments Exception and EventName. EventName is the handler at which the error ocurred in. Exception is the actual error. 
+
+We can also define certain global settings for the application here:
+```
+this.name = "my_application_name"
+this.applicationTimeout = CreateTimeSpan(10,0,0,0);
+// Define where CF should look for custom tags
+this.customTagPaths = [ expandPath('/myAppCustomTags') ];
+// custom mappings to superceed any existing mappings of the same name.
+this.mappings = {
+    "/foo" = expandPath('/com/myCompany/foo')
+};
+// Application's globally defined datasource (only one)
+this.datasource = "my_datasource";
+```
+## OOP
