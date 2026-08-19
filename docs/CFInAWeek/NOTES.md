@@ -1,9 +1,17 @@
 # CF in a week takeaways / Notes
 ## Questions for Phil
 1. How does our team prevent SQL injections and other security vulnerabilities?
+Strict cfquery paramtag enforcement for all queries to prevent SQL Injections.
+The whole application is behind an auth wall.
+
 2. What framework do admissions applications use? I see Framework-1 (MVC) and ColdBox (HMVC)
-3. What are serve cache settings for our applications? Where do the servers run? 
+No frameworks, wild west. 
+
+3. What server cache settings for our applications? Where do the servers run? 
+Don't use cache settings too much. For HUGE queries yeah, but thats about it.
+
 4. Do most of the applications we use have a seperate frontend, or is everything served through CF?
+Everythings through .cfc files.
 
 ## Basics
 ### What is Coldfusion
@@ -825,4 +833,20 @@ We can configure a lot of cache stuff in `Application.cfc`. Here are 2 of the ma
 Custom regions can be defined so you can compartmentalized caching settings depending on the specific region. A region can be created with `cacheRegionNew( 'htmlBlock', properties )`.
 Additional functions related to the region are defined in the section.
 
-##
+## Security
+### Introduction
+Key thoughts to keep in mind:
+1. Anything that can communicate over HTTP is the client interface to your web application. Not just the web browser.
+2. Don't trust data from the client (cookies, form post data, CGI variables). Anything can be manipulated.
+3. All input MUST be validated on the server side.
+4. User `Allow Lists` over `Deny Lists`.
+
+### SQL Injection
+To prevent SQL injections we should pass all variables as params to queryExecute. Here's how to do that in cfscript.
+```
+<cfscript>
+    news = queryExecute("SELECT * FROM news WHERE id = :newsID",
+        { newsID={ value=url.id, cfsqltype="integer" } } );
+</cfscript>
+```
+
