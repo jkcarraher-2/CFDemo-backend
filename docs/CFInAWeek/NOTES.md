@@ -2,6 +2,8 @@
 ## Questions for Phil
 1. How does our team prevent SQL injections and other security vulnerabilities?
 2. What framework do admissions applications use? I see Framework-1 (MVC) and ColdBox (HMVC)
+3. What are serve cache settings for our applications? Where do the servers run? 
+4. Do most of the applications we use have a seperate frontend, or is everything served through CF?
 
 ## Basics
 ### What is Coldfusion
@@ -779,3 +781,48 @@ There is also functionality to create new images, draw on them, and get their in
 ### Spreadsheets
 
 ## Caching
+
+Performance optimization in CF is very manual. There are 2 main functions to be used `cachePut` and `cacheGet`.
+
+For cacheGet keep in mind that if a key doesn't exist in the cache, it will be returned as `null`
+
+To manually purge the entire cache, you can `cacheRemove('ID_OF_ITEM_TO_BE_REMOVED')`
+
+If we want to see all the items in the cache currently we can call `cacheGetAllIds()`.
+For even more detail into a single cached item, we can call `cacheGetMetadata('itemid')`. This will give us date/time created, last time accessed, size, and cache hitcount.
+
+We can also store the result of a `queryExecute` item in cache. Be careful, make sure to use this only for data that is not accessed frequently.
+
+Generated content can also be cached using the `cfcache` tag, similar to memoization in React. However this is "dumb" and "agressive" caching. It should only be done for NON-DYNAMIC sections of HTML.
+In situations where this needs to happen you can run the following code which will flush cfcaches that match the url
+```
+<cfcache action="flush" expireURL="/report.cfm?state=">
+```
+
+There is also server level caching which is configued in CFAdmin.
+
+Note that the default behavior or Cacheing does check if the data has been changed. This does add some overhead. If you want to reduce that ovehead you can enable `Trusted Cache`. Keep in mind this prevents the template cache from keeping up to date.
+
+Cache values can also be saved between device restarts with a Save class file.
+
+### Advanced Caching
+
+Server supports Ehcache, JCS, memcached, and Redis by default.
+
+Ehcache is the underlying engine behind caching in CF. Redis is Enterprise only (paid).
+
+Server defined caching properties include:
+- `Max idle time` - Default time for cache eviction
+- `Max life span` - Amount of time an object will exist in cache before eviction.
+- `Max elements` - Upper limit for items in the cache. 
+- `Eternal` - If set to true, items in the cache wil never expire. 
+
+We can configure a lot of cache stuff in `Application.cfc`. Here are 2 of the main peroperties. 
+
+- `this.cache.engine` - Defines what engine (ehcache, jcs, resis, memcached) is used with this app.
+- `this.cache.configfile` - Defines the path to file containing config properties for caching engine.
+
+Custom regions can be defined so you can compartmentalized caching settings depending on the specific region. A region can be created with `cacheRegionNew( 'htmlBlock', properties )`.
+Additional functions related to the region are defined in the section.
+
+##
