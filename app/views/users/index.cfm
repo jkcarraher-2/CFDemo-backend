@@ -18,7 +18,7 @@
 
         <tbody>
             <cfoutput query="request.users">
-                <tr>
+                <tr class="bg-black">
                     <td>#id#</td>
                     <td>#first_name# #last_name#</td>
                     <td>#email#</td>

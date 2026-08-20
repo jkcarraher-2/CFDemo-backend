@@ -4,4 +4,8 @@ java_lib/*.jar
 # Don't push db files
 *.db
 
+# Don't push cfconfig files
+*cfconfig.json
+
+# Don't push mac filesystem config files
 *.DS_Store
