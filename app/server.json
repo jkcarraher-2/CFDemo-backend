@@ -1,7 +1,7 @@
 {
     "app":{
         "cfengine":"adobe@2023",
-        "libDirs":"java_lib",
+        "libDirs":"../drivers",
         "restMappings":"/rest/*,/api/*"
     },
     "web":{

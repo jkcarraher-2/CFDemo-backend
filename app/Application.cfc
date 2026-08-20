@@ -8,7 +8,7 @@ component {
     }
 
     function initalizeDatabase() {
-        var schemaPath = expandPath("/db/schema.sql");
+        var schemaPath = expandPath("../databases/schema.sql");
         var schema = fileRead(schemaPath);
         
         // Execute each statement in the schema 
