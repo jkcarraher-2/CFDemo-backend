@@ -7,7 +7,13 @@ services:
     ports:
       - "8080:8080"
 
+    environment:
+      - cfconfig_adminPassword=commandbox
+      - BOX_SERVER_PROFILE=development
+      - BOX_SERVER_WEB_REWRITES_ENABLE=true
+
     volumes:
       - ./app:/app
       - ./databases:/databases
       - ./drivers:/drivers
+    
