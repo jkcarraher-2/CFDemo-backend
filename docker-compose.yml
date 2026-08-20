@@ -8,7 +8,8 @@ services:
       - "8080:8080"
 
     environment:
-      - cfconfig_adminPassword=commandbox
+      - cfconfigfile=/app/CFConfig.json
+      - cfconfig_adminPassword=${CF_ADMIN_PASSWORD}
       - BOX_SERVER_PROFILE=development
       - BOX_SERVER_WEB_REWRITES_ENABLE=true
 

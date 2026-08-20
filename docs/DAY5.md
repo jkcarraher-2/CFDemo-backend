@@ -19,3 +19,17 @@ Then, once I've installed docker, I install Commandbox's official Docker image.
 docker pull ortussolutions/commandbox
 ```
 
+In order to ensure we can configure our database-connection and enable REST within docker, blocking of CFAdmin must explitly disabled.
+```
+"web":{
+    "blockCFAdmin": false
+}
+```
+
+Instructions for how to use Ortus' dockerfile setup are described below. Note that in our dockerfile we create 3 directories: 
+1. `/app` - For application specific code
+2. `/database` - Contains the SQLite database files we used within the file.
+3. `/drivers` - Stores jars for drivers that don't come with the standard CF install.
+https://github.com/Ortus-Solutions/docker-commandbox
+
+We also needed to define a password to override the one that our docker container sets.
