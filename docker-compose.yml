@@ -17,4 +17,17 @@ services:
       - ./app:/app
       - ./databases:/databases
       - ./drivers:/drivers
-    
+  
+  tailwind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ["/usr/local/bin/tailwindcss"]
+    command:
+      - "-i"
+      - "/app/assets/css/input.css"
+      - "-o"
+      - "/app/assets/css/output.css"
+      - "--watch=always"
+    volumes:
+      - ./app:/app

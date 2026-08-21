@@ -1,4 +1,5 @@
 {
+    "openBrowser":false,
     "app":{
         "cfengine":"adobe@2023",
         "libDirs":"../drivers",
@@ -9,8 +10,8 @@
             "port":"8080"
         },
         "rewrites":{
-            "enable": true
+            "enable":true
         },
-        "blockCFAdmin": false
+        "blockCFAdmin":false
     }
 }

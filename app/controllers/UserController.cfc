@@ -1,8 +1,9 @@
 component {
+
     /**
      * Display a list of all users.
      */
-    public void function index() {
+    public struct function index() {
         var users = queryExecute("
             SELECT
                 id,
@@ -15,14 +16,16 @@ component {
 
         request.users = users;
 
-        include "../views/users/index.cfm";
+        return {
+            view: "users/index"
+        };
     }
 
 
     /**
      * Display a single user.
      */
-    public void function show(required numeric id) {
+    public struct function show(required numeric id) {
 
         var user = queryExecute("
             SELECT
@@ -45,12 +48,15 @@ component {
                 statustext = "User Not Found"
             );
 
-            writeOutput("User not found.");
-            return;
+            return {
+                view: "404"
+            };
         }
 
         request.user = user;
 
-        include "../views/users/detail.cfm";
+        return {
+            view: "users/detail"
+        };
     }
 }
