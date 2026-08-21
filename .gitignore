@@ -12,4 +12,4 @@ java_lib/*.jar
 *.DS_Store
 
 # Don't push any envs
-*.env*
+*.env
