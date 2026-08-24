@@ -1,4 +1,4 @@
-<cfimport prefix="layout" taglib="/components/layout"/>
+<cfimport prefix="layout" taglib="/components/layout">
 <cfscript>
     savecontent variable="content" {
         include "/views/#view#.cfm";
@@ -17,12 +17,11 @@
 </head>
 
 <body>
-    <layout:header/>
-
+    <layout:header>
     <main>
-        <cfscript>
-            writeOutput(content)
-        </cfscript>
+        <cfoutput>
+            #content#
+        </cfoutput>
     </main>
 
     <footer>

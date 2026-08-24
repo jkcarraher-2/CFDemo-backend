@@ -1,22 +1,25 @@
 
 <header>
-    <div class="w-full mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="/" class="text-xl font-bold text-gray-900">
+    <div class="w-full flex items-stretch justify-between px-6
+        <!--- Graident Background --->
+        bg-linear-to-t from-btn-blue-t to-btn-blue-b "
+    >
+        <a href="/" class="py-3 text-lg font-bold text-white">
             My App
         </a>
 
         <!--- Navigation --->
-        <nav class="flex items-center gap-6">
+        <nav class="flex items-stretch">
             <a
                 href="/courses"
-                class="text-sm font-medium text-gray-600 hover:text-gray-900"
+                class="flex items-center px-3 text-sm font-medium text-white hover:bg-btn-blue-light"
             >
                 Courses
             </a>
 
             <a
                 href="/users"
-                class="text-sm font-medium text-gray-600 hover:text-gray-900"
+                class="flex items-center px-3 py-3 text-sm font-medium text-white hover:bg-btn-blue-light"
             >
                 Users
             </a>
