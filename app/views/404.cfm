@@ -1,3 +1,5 @@
+<cfimport prefix="ui" taglib="/components/ui">
+
 <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
     <p class="text-6xl font-bold text-gray-300">
         404
@@ -11,10 +13,8 @@
         Sorry, we couldn't find the page you're looking for.
     </p>
 
-    <a
+    <ui:button
+        text="Go Home"
         href="/"
-        class="mt-6 inline-block rounded-md bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
     >
-        Go Home
-    </a>
 </div>
