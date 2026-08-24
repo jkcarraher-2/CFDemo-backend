@@ -1,7 +1,9 @@
 <cfimport prefix="ui" taglib="/components/ui"/>
 
-<div class="mx-15">
-    <h1>Courses</h1>
+<div>
+    <h1 class="text-2xl text-body-blue">
+        Courses
+    </h1>
 
     <cfif request.courses.recordCount EQ 0>
         <p class="text-gray-600">
@@ -16,10 +18,10 @@
                             ID
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                            Title
+                            Subject Course
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                            Description
+                            Title
                         </th>
                         <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-600">
                             Actions
@@ -35,19 +37,21 @@
                             </td>
 
                             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
+                                #subject_code# #course_number#
+                            </td>
+
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
                                 #title#
                             </td>
 
-                            <td class="px-6 py-4 text-sm text-gray-600">
-                                #description#
-                            </td>
-
                             <td class="px-6 py-4">
-                                <ui:button
-                                    text="View"
-                                    href="/courses/#id#"
-                                    class=""
-                                >
+                                <div class="flex items-center justify-end">
+                                    <ui:button
+                                        text="View"
+                                        href="/courses/#id#"
+                                        class=""
+                                    >
+                                </div>
                             </td>
                         </tr>
                     </cfoutput>

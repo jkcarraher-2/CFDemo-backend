@@ -22,6 +22,12 @@
         case path == "/courses":
             result = courseController.index();
             break;
+        case reFind("^/courses/[0-9]+$", path):
+            courseId = listLast(path, "/");
+            result = courseController.show(
+                id = val(courseId)
+            );
+            break;
         default:
             cfheader(
                 statuscode = 404,

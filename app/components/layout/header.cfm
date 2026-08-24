@@ -1,11 +1,11 @@
 
 <header>
     <div class="w-full flex items-stretch justify-between px-6
-        <!--- Graident Background --->
+        <!--- STYLE: Graident Background --->
         bg-linear-to-t from-btn-blue-t to-btn-blue-b "
     >
         <a href="/" class="py-3 text-lg font-bold text-white">
-            My App
+            <span class="text-yellow-500">schedule</span>Builder
         </a>
 
         <!--- Navigation --->

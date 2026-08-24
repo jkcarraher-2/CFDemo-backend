@@ -18,7 +18,7 @@
 
 <body>
     <layout:header>
-    <main>
+    <main class="mx-15 my-10">
         <cfoutput>
             #content#
         </cfoutput>

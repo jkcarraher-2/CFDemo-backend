@@ -1,5 +1,5 @@
-<div class="mx-15">
-    <h1 class="mb-6 text-2xl font-bold text-gray-900">Users</h1>
+<div>
+    <h1 class="mb-6 text-2xl text-body-blue">Users</h1>
 
     <cfif request.users.recordCount EQ 0>
 
