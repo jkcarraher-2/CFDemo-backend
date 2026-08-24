@@ -1,4 +1,8 @@
 @import "tailwindcss";
 
-@source "../../views/**/*.cfm";
-@source "../../components/**/*.cfm";
+@theme {
+    /* SCHEDULE BUILDER BUTTON STYLES */
+    --color-btn-blue-t: #002855;
+    --color-btn-blue-b: #355B85;
+    --color-btn-blue-light: #355B85;
+}
