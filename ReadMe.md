@@ -13,4 +13,4 @@ docker compose up --build
 OPTIONAL: While there is code for REST endpoints, they will not work by default. 
 
 ### System Architecture
-<img width="500" alt="Screenshot 2026-08-24 at 7 27 36 AM" src="https://github.com/user-attachments/assets/f5dbdf76-3e77-4501-8c13-978732a7b2be" />
+<img width="750" alt="Screenshot 2026-08-24 at 7 27 36 AM" src="https://github.com/user-attachments/assets/f5dbdf76-3e77-4501-8c13-978732a7b2be" />
