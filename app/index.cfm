@@ -7,26 +7,27 @@
     }
 
     userController = new controllers.UserController();
+    courseController = new controllers.CourseController();
 
-    if (path == "/users") {
-        result = userController.index();
-    }
-    else if (reFind("^/users/[0-9]+$", path)) {
-        userId = listLast(path, "/");
-
-        result = userController.show(
-            id = val(userId)
-        );
-    }
-    else {
-        cfheader(
-            statuscode = 404,
-            statustext = "Not Found"
-        );
-
-        result = {
-            view: "404"
-        };
+    switch(true) {
+        case path == "/users":
+            result = userController.index();
+            break;
+        case reFind("^/users/[0-9]+$", path):
+            userId = listLast(path, "/");
+            result = userController.show(
+                id = val(userId)
+            );
+            break;
+        case path == "/courses":
+            result = courseController.index();
+            break;
+        default:
+            cfheader(
+                statuscode = 404,
+                statustext = "Not Found"
+            );
+            result = { view: "404" };
     }
 
     view = result.view;

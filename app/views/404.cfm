@@ -16,5 +16,6 @@
     <ui:button
         text="Go Home"
         href="/"
+        class="mt-6"
     >
 </div>

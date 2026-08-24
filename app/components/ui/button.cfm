@@ -5,13 +5,15 @@
 <cfparam name='attributes.href' default="">
 <cfparam name='attributes.onClick' default="">
 
-<cfset buttonClass = "mt-6 inline-block rounded-md px-5 py-2.5 text-sm font-semibold text-white " &
+<cfset buttonClass = "inline-block rounded-md px-5 py-2.5 text-sm font-semibold text-white " &
     <!--- unhovered bg style --->
     "bg-linear-to-t from-btn-blue-t to-btn-blue-b " &
     <!--- hovered bg-style --->
     "hover:from-btn-blue-light hover:to-btn-blue-light " &
     <!--- 3D border --->
-    "border border-btn-blue-light shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+    "border border-btn-blue-light shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] " &
+    <!--- Custom Classes --->
+    #attributes.class#
 >
 
 <cfoutput>
