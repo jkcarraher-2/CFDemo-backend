@@ -53,11 +53,11 @@
             <!--- Actions --->
             <div class="mt-8 flex items-center gap-3">
                 <ui:button
-                    text="Back to Courses"
+                    text="← Back to Users"
+                    variant="subtle"
                     href="/courses"
                 >
             </div>
-
         </div>
     </cfoutput>
 </cfif>
