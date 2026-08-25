@@ -12,7 +12,7 @@
                 name="query"
                 value="#encodeForHtmlAttribute(attributes.query)#"
                 placeholder="eg: 52970"
-                class="w-full rounded-l-md border border-gray-300 bg-white px-2 py-2 pr-10 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-btn-blue-b focus:ring-2 focus:ring-btn-blue-b/20"
+                class="w-full rounded-l-md border border-gray-300 bg-white px-2 py-2 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-btn-blue-b focus:ring-2 focus:ring-btn-blue-b/20"
             >
         </div>
 
