@@ -34,12 +34,16 @@
             <!--- Results --->
             <cfif len(searchQuery)>
                 <cfif courses.recordCount GT 0>
-                    <div class="">
+                    <div class="space-y-2">
                         <cfloop query="courses">
                             <courseSearch:courseItem
                                 course="#{
                                     id: id,
+                                    crn: crn,
+                                    subject_code: subject_code,
+                                    course_number: course_number,
                                     title: title,
+                                    units: units,
                                     description: description
                                 }#"
                             >

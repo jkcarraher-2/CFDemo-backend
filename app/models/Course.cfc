@@ -4,8 +4,13 @@ component {
             "
                 SELECT
                     id,
+                    crn,
+                    course_number,
+                    subject_code,
                     title,
-                    description
+                    description,
+                    units,
+                    seats
                 FROM classes
                 WHERE title LIKE :search
                    OR description LIKE :search
