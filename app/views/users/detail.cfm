@@ -42,50 +42,8 @@
             <!--- User Information --->
             <section class="mt-8">
                 <h2 class="text-xl font-semibold text-gray-900">
-                    User Information
+                    Search For Courses
                 </h2>
-
-                <div class="mt-4 overflow-hidden rounded-lg border border-gray-200 bg-white">
-                    <dl class="divide-y divide-gray-200">
-
-                        <div class="grid grid-cols-1 gap-1 px-6 py-4 sm:grid-cols-3">
-                            <dt class="text-sm font-medium text-gray-500">
-                                ID
-                            </dt>
-                            <dd class="text-sm text-gray-900 sm:col-span-2">
-                                #user.id#
-                            </dd>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-1 px-6 py-4 sm:grid-cols-3">
-                            <dt class="text-sm font-medium text-gray-500">
-                                First Name
-                            </dt>
-                            <dd class="text-sm text-gray-900 sm:col-span-2">
-                                #encodeForHtml(user.first_name)#
-                            </dd>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-1 px-6 py-4 sm:grid-cols-3">
-                            <dt class="text-sm font-medium text-gray-500">
-                                Last Name
-                            </dt>
-                            <dd class="text-sm text-gray-900 sm:col-span-2">
-                                #encodeForHtml(user.last_name)#
-                            </dd>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-1 px-6 py-4 sm:grid-cols-3">
-                            <dt class="text-sm font-medium text-gray-500">
-                                Email
-                            </dt>
-                            <dd class="text-sm text-gray-900 sm:col-span-2">
-                                #encodeForHtml(user.email)#
-                            </dd>
-                        </div>
-
-                    </dl>
-                </div>
             </section>
 
 

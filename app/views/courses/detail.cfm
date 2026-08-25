@@ -53,7 +53,7 @@
             <!--- Actions --->
             <div class="mt-8 flex items-center gap-3">
                 <ui:button
-                    text="← Back to Users"
+                    text="← Back to Courses"
                     variant="subtle"
                     href="/courses"
                 >

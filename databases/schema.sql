@@ -9,11 +9,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `classes` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `crn` INTEGER NOT NULL UNIQUE,
     `subject_code` TEXT NOT NULL,
     `course_number` TEXT NOT NULL,
     `title` TEXT NOT NULL UNIQUE,
     `description` TEXT,
     `units` INTEGER NOT NULL,
+    `seats` INTEGER NOT NULL,
     `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

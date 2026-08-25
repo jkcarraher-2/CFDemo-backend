@@ -10,6 +10,9 @@
     courseController = new controllers.CourseController();
 
     switch(true) {
+        case path == "/":
+            result = { view: "index" };
+            break;
         case path == "/users":
             result = userController.index();
             break;
