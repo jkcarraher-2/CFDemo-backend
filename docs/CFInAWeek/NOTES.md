@@ -1,17 +1,21 @@
 # CF in a week takeaways / Notes
 ## Questions for Phil
 1. How does our team prevent SQL injections and other security vulnerabilities?
+
 Strict cfquery paramtag enforcement for all queries to prevent SQL Injections.
 The whole application is behind an auth wall.
 
 2. What framework do admissions applications use? I see Framework-1 (MVC) and ColdBox (HMVC)
+
 No frameworks, wild west. 
 
 3. What server cache settings for our applications? Where do the servers run? 
+
 Don't use cache settings too much. For HUGE queries yeah, but thats about it.
 
 4. Do most of the applications we use have a seperate frontend, or is everything served through CF?
-Everythings through .cfc files.
+
+Everythings through .cfc/.cfm files.
 
 ## Basics
 ### What is Coldfusion
