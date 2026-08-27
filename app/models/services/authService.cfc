@@ -28,6 +28,7 @@ component {
     }
 
     function authenticate(required string email, required string password) {
+        userService = new models.services.userService
         var user = userService.findByUsername(arguments.email);
 
         if (isNull(user)) {

@@ -1,6 +1,5 @@
 component {
-
-    property name="authService";
+    property name="authController";
 
     function login(required struct rc) {
 
@@ -10,6 +9,7 @@ component {
             rc.error = "Username and password are required.";
             return;
         }
+        authService = new models.services.authService()
 
         var result = authService.authenticate(
             rc.username,

@@ -31,6 +31,9 @@
                 id = val(courseId)
             );
             break;
+        case path == "/login":
+            result = { view: "auth/login" };
+            break;
         default:
             cfheader(
                 statuscode = 404,
