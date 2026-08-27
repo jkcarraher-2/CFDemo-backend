@@ -57,19 +57,22 @@
         consumes="application/json">
         <cftry>
             <cfset var body = deserializeJSON(toString(getHttpRequestData().content))>
+            <cfset var passwordHash = generateBCryptHash(body.password)>
 
             <cfquery name="qUser" datasource="sqlite">
                 INSERT INTO users (
                     kerberos,
                     email,
                     first_name,
-                    last_name
+                    last_name,
+                    password_hash
                 )
                 VALUES (
                     <cfqueryparam value="#body.kerberos#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#body.email#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#body.first_name#" cfsqltype="cf_sql_varchar">,
-                    <cfqueryparam value="#body.last_name#" cfsqltype="cf_sql_varchar">
+                    <cfqueryparam value="#body.last_name#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#passwordHash#" cfsqltype="cf_sql_varchar">
                 )
             </cfquery>
 
