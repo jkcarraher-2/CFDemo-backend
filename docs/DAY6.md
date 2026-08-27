@@ -6,3 +6,6 @@ After diving into the uctap repository code, I've decided to add some sort of au
 Right now we're using REST to create an account since I'm lazy and I already have the logic written out. The importnat detail I learned is that for databases you don't store the password, instead you store the hashed version of the password to be decryped afterwards. Right now UCTap uses SHA512, which apparently is cheap to decrypt with guessing. I used Adobe's `GenerateBCryptHash()`
 
 https://guides.adobe.com/coldfusion/en/docs/cfml-reference/generatebcrypthash.html
+
+Post 2025 release
+https://guides.adobe.com/coldfusion/en/docs/introduction-to-coldfusion/__references__/hash-and-verify-passwords-in-coldfusion.html

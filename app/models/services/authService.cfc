@@ -24,7 +24,28 @@ component {
         // Establish the authenticated session
         session.user = result.user;
 
-        location("/dashboard");
+        location("/");
+    }
+
+    function authenticate(required string email, required string password) {
+        var user = userService.findByUsername(arguments.email);
+
+        if (isNull(user)) {
+            return {
+                success: false
+            };
+        }
+
+        if (!VerifyBCryptHash(arguments.password, user.passwordHash)) {
+            return {
+                success: false
+            };
+        }
+
+        return {
+            success: true,
+            user: user
+        };
     }
 
 }

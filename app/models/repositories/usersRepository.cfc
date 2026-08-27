@@ -1,14 +1,14 @@
 component {
-    function findByUsername(required string username) {
+    function findByEmail(required string email) {
         return queryExecute(
             "
-            SELECT id, username, password_hash, role
+            SELECT id, email, password_hash
             FROM users
-            WHERE username = :username
+            WHERE email = :email
             ",
             {
-                username: {
-                    value: arguments.username,
+                email: {
+                    value: arguments.email,
                     cfsqltype: "cf_sql_varchar"
                 }
             }

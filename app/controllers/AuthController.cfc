@@ -24,7 +24,7 @@ component {
         // Establish the authenticated session
         session.user = result.user;
 
-        location("/dashboard");
+        location("/");
     }
 
 }
