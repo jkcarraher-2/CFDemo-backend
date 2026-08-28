@@ -1,7 +1,4 @@
 component {
-
-    property name="authService";
-
     function login(required struct rc) {
 
         if (!structKeyExists(rc, "username") ||
@@ -11,7 +8,7 @@ component {
             return;
         }
 
-        var result = authService.authenticate(
+        var result = authenticate(
             rc.username,
             rc.password
         );
@@ -28,18 +25,20 @@ component {
     }
 
     function authenticate(required string email, required string password) {
-        userService = new models.services.userService
-        var user = userService.findByUsername(arguments.email);
+        var userService = new models.services.userService();
+        var user = userService.findByEmail(arguments.email);
 
         if (isNull(user)) {
             return {
-                success: false
+                success: false,
+                error: "Invalid Email"
             };
         }
 
         if (!VerifyBCryptHash(arguments.password, user.passwordHash)) {
             return {
-                success: false
+                success: false,
+                error: "Wrong Password"
             };
         }
 

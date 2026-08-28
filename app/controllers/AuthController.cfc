@@ -1,6 +1,4 @@
 component {
-    property name="authController";
-
     function login(required struct rc) {
 
         if (!structKeyExists(rc, "username") ||
@@ -9,7 +7,8 @@ component {
             rc.error = "Username and password are required.";
             return;
         }
-        authService = new models.services.authService()
+
+        var authService = new models.services.AuthService();
 
         var result = authService.authenticate(
             rc.username,
@@ -17,7 +16,7 @@ component {
         );
 
         if (!result.success) {
-            rc.error = "Invalid username or password.";
+            rc.error = result.error;
             return;
         }
 

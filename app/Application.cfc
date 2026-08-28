@@ -1,6 +1,7 @@
 component {
     this.name = "CFDemo";
     this.datasource = "sqlite";
+    this.sessionManagement = true;
 
     // This code runs one time when App STARTS
     function onApplicationStart() {

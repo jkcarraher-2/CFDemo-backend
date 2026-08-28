@@ -13,6 +13,12 @@
 <cfoutput>
     <h1>Login</h1>
 
+    <cfif structKeyExists(form, "error")>
+        <div class="error">
+            #encodeForHtml(form.error)#
+        </div>
+    </cfif>
+
     <form method="post" action="/login?action=login">
         <label>
             Username

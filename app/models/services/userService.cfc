@@ -1,8 +1,6 @@
 component {
-
-    property name="userService";
-
     function findByEmail(required string email) {
+        var userRepository = new models.repos.userRepository();
         var result = userRepository.findByEmail(arguments.email);
 
         // User NOT FOUND
@@ -13,8 +11,7 @@ component {
         return {
             id: result.id[1],
             email: result.email[1],
-            passwordHash: result.password_hash[1],
+            passwordHash: result.password_hash[1]
         };
     }
-
 }
