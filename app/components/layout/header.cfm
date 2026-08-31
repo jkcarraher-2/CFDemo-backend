@@ -1,3 +1,4 @@
+<cfimport prefix="symbols" taglib="/components/ui/symbols">
 <header class="relative">
     <nav class="w-full flex items-stretch justify-between px-6
         <!--- STYLE: Gradient Background --->
@@ -23,71 +24,39 @@
                     Login
                 </a>
             <cfelse>
-                <div class="relative group h-full">
+                <div class="relative group h-full w-max">
 
                     <!--- User button --->
                     <a
-                        class="
-                            flex
-                            items-center
-                            h-full
-                            px-3
-                            py-3
-                            text-sm
-                            font-medium
-                            text-white
-                            hover:bg-btn-blue-light
-                        "
+                        class="flex items-center
+                               h-full w-max px-3 py-3
+                               text-sm font-medium
+                               text-white hover:bg-btn-blue-light"
                     >
-                        <cfoutput>#request.userId#</cfoutput>
+                        <cfoutput>#request.first_name#</cfoutput>
+                        <symbols:down_arrow color="##daaa00">
                     </a>
 
 
                     <!--- Dropdown --->
                     <div class="absolute top-full right-0 
-                                w-full rounded-md
-                                border border-gray-200 bg-white
+                                w-max rounded-md py-3
+                                border border-gray-300 bg-white
                                 opacity-0 invisible
                                 group-hover:opacity-100 group-hover:visible transition duration-150"
                     >
-
                         <!--- Callout arrow --->
-                        <div
-                            class="
-                                absolute
-                                -top-1
-                                right-5
-                                h-2
-                                w-2
-                                rotate-45
-                                border-l
-                                border-t
-                                border-gray-200
-                                bg-white
-                            "
-                        ></div>
-
+                        <div class="absolute -top-1 right-5 h-2 w-2 z-0 rotate-45 border-l border-t border-gray-200 bg-white"></div>
 
                         <!--- Menu --->
-                        <a
-                            href="/auth/logout"
-                            class="
-                                relative
-                                block
-                                rounded-lg
-                                px-4
-                                py-3
-                                text-sm
-                                text-gray-700
-                                hover:bg-gray-50
-                                hover:text-indigo-600
-                            "
+                        <a href="/auth/logout" 
+                           class="block z-10 px-4 py-1 text-md whitespace-nowrap
+                                  text-body-blue bg-white 
+                                  hover:bg-body-blue hover:text-white"
                         >
                             Sign Out
                         </a>
-
                     </div>
-
                 </div>
             </cfif>
         </div>

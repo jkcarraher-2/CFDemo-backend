@@ -1,7 +1,9 @@
+<cfparam name="attributes.color" default="white">
+
 <svg
     class="h-4 w-4"
     viewBox="0 0 20 20"
-    fill="currentColor"
+    fill="<cfoutput>#attributes.color#</cfoutput>"
     aria-hidden="true"
 >
     <path
