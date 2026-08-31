@@ -13,6 +13,8 @@
 <cfoutput>
     <h1>Login</h1>
 
+    <div>#isUserLoggedIn()#</div>
+
     <cfif structKeyExists(form, "error")>
         <div class="error">
             #encodeForHtml(form.error)#

@@ -15,3 +15,8 @@ docker compose up --build
 ```
 
 OPTIONAL: While there is code for REST endpoints, they will not work by default. 
+
+To run commands within the docker container.
+```
+docker exec -it [CONTAINER-NAME] bash
+```

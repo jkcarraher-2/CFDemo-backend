@@ -10,6 +10,9 @@ component {
 
         return {
             id: result.id[1],
+            first_name: result.first_name[1],
+            last_name: result.last_name[1],
+            kerberos: result.kerberos[1],
             email: result.email[1],
             passwordHash: result.password_hash[1]
         };
