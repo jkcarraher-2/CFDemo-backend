@@ -30,9 +30,14 @@
                     </div>
                 </div>
 
-                <ui:button
-                    text="View Course"
-                    href="/courses/#encodeForHtmlAttribute(attributes.course.id)#"
+                <ui:dropdown_button
+                    text="Actions"
+                    options="#[
+                        {
+                            text: 'View Course',
+                            href: '/courses/#encodeForHtmlAttribute(attributes.course.id)#'
+                        }
+                    ]#"
                     class="inline-flex shrink-0 justify-center items-center"
                 >
             </div>
