@@ -9,7 +9,7 @@ component {
     
     // This code runs whenever a request starts
     function onRequestStart() {
-        // Fetch Authenticated User Object
+        // Fetch & Set User info in request scope
         if ( isUserLoggedIn() ) {
             request.userId = GetAuthUser()
             var userService = new models.services.userService();

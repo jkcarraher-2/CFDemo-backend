@@ -18,14 +18,14 @@
             </a>
             <cfif NOT isUserLoggedIn()>
                 <a
-                    href="/login"
+                    href="/auth/login"
                     class="flex items-center px-3 py-3 text-sm font-medium text-white hover:bg-btn-blue-light"
                 >
                     Login
                 </a>
             <cfelse>
                 <a 
-                    href="/logout"
+                    href="/auth/logout"
                     class="flex items-center px-3 py-3 text-sm font-medium text-white hover:bg-btn-blue-light" 
                 >
                     <cfoutput>#request.kerberos#</cfoutput>

@@ -31,8 +31,11 @@
                 id = val(courseId)
             );
             break;
-        case path == "/login":
+        case path == "/auth/login":
             result = { view: "auth/login" };
+            break;
+        case path == "/auth/logout":
+            result = { view: "auth/logout" };
             break;
         default:
             cfheader(
