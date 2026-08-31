@@ -21,7 +21,7 @@
         </div>
     </cfif>
 
-    <form method="post" action="/login?action=login">
+    <form method="post" action="/auth/login?action=login">
         <label>
             Username
             <input type="text" name="username">
