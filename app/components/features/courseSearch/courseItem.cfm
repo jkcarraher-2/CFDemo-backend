@@ -46,7 +46,7 @@
                         },
                         {
                             text: 'Enroll',
-                            action: '/courses/enroll/#encodeForHTMLAttribute(attributes.course.id)#'
+                            action: 'rest/api/enrollments/create?id=#encodeForHTMLAttribute(attributes.course.id)#'
                         }
                     ]#"
                     class="inline-flex shrink-0 justify-center items-center"

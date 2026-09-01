@@ -38,10 +38,6 @@
         case path == "/auth/logout":
             result = { view: "auth/logout" };
             break;
-        case reFind("^/courses/enroll/[0-9]+$", path):
-            courseId = listLast(path, "/");
-            result = courseController.enroll(val(courseId));
-            break;
         default:
             result = errorController.errorView();
     }

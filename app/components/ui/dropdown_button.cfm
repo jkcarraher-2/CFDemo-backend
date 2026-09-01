@@ -77,6 +77,7 @@
                         bg-white
                         hover:bg-body-blue hover:text-white
                         transition-colors duration-100
+                        cursor-pointer
                     "
                 >
                     <cfoutput>#encodeForHtml(option.text)#</cfoutput>
@@ -84,5 +85,4 @@
             </cfif>
         </cfloop>
     </div>
-
 </div>
