@@ -8,6 +8,7 @@
 
     userController = new controllers.UserController();
     courseController = new controllers.CourseController();
+    errorController = new controllers.ErrorController();
 
     switch(true) {
         case path == "/":
@@ -44,11 +45,7 @@
             );
             break;
         default:
-            cfheader(
-                statuscode = 404,
-                statustext = "Not Found"
-            );
-            result = { view: "404" };
+            result = errorController.errorView();
     }
 
     view = result.view;

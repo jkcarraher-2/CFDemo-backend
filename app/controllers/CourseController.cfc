@@ -46,14 +46,8 @@ component {
         });
 
         if (course.recordCount == 0) {
-            cfheader(
-                statuscode = 404,
-                statustext = "Course Not Found"
-            );
-
-            return {
-                view: "404"
-            };
+            var errorController = new controllers.errorController();
+            return errorController.errorView(404, "Course Not Found");
         }
 
         request.course = course;
@@ -62,6 +56,7 @@ component {
             view: "courses/detail"
         };
     }
+    
     /**
      * Enrolls curr user a single course.
      */
@@ -85,20 +80,13 @@ component {
         });
 
         if (course.recordCount == 0) {
-            cfheader(
-                statuscode = 404,
-                statustext = "Course Not Found"
-            );
-
-            return {
-                view: "404"
-            };
+            var errorController = new controllers.ErrorController(); 
+            return errorController.errorView(404, "Course Not Found");
         }
+
         if ( NOT isUserLoggedIn() ) {
-            cfheader(
-                statuscode = 401,
-                statustext = "Must be logged in to perform this action"
-            )
+            var errorController = new controllers.ErrorController();
+            return errorController.errorView(401, "Must be logged in to perform this action")
         }
 
         request.course = course;
