@@ -11,9 +11,10 @@ component {
     function onRequestStart() {
         // Fetch & Set User info in request scope
         if ( isUserLoggedIn() ) {
-            request.userId = GetAuthUser()
+            request.userEmail = GetAuthUser()
             var userService = new models.services.userService();
-            var user = userService.findByEmail(request.userId)
+            var user = userService.findByEmail(request.userEmail)
+            request.userId = user.id
             request.first_name = user.first_name
             request.last_name = user.last_name
             request.kerberos = user.kerberos

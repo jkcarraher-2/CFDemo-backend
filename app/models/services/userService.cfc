@@ -1,7 +1,12 @@
 component {
+    function exists(required integer userId) {
+        var userRepo = new models.repos.userRepo();
+        return userRepo.get(userId).recordCount > 0;
+    }
+
     function findByEmail(required string email) {
-        var userRepository = new models.repos.userRepository();
-        var result = userRepository.findByEmail(arguments.email);
+        var userRepo = new models.repos.userRepo();
+        var result = userRepo.findByEmail(arguments.email);
 
         // User NOT FOUND
         if (result.recordCount == 0) {

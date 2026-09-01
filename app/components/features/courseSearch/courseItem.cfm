@@ -36,6 +36,10 @@
                         {
                             text: 'View Course',
                             href: '/courses/#encodeForHtmlAttribute(attributes.course.id)#'
+                        },
+                        {
+                            text: 'Enroll',
+                            href: '/courses/enroll/#encodeForHtmlAttribute(attributes.course.id)#'
                         }
                     ]#"
                     class="inline-flex shrink-0 justify-center items-center"

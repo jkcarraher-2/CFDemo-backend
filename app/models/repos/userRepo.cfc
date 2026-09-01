@@ -1,4 +1,20 @@
 component {
+    function get(required string userId) {
+        return queryExecute(
+            "
+                SELECT
+                    id
+                FROM users
+                WHERE id IS :userId
+            ",
+            {
+                userId: {
+                    value: arguments.userId,
+                    cfsqltype: "cf_sql_numeric"
+                }
+            }
+        );
+    }
     function findByEmail(required string email) {
         return queryExecute(
             "

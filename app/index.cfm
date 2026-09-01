@@ -40,9 +40,7 @@
             break;
         case reFind("^/courses/enroll/[0-9]+$", path):
             courseId = listLast(path, "/");
-            result = courseController.enroll(
-                id = val(courseId)
-            );
+            result = courseController.enroll(val(courseId));
             break;
         default:
             result = errorController.errorView();

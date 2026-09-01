@@ -7,9 +7,9 @@
     courses = queryNew("");
 
     if (len(searchQuery)) {
-        courseModel = new models.Course();
+        courseService = new models.services.courseService();
 
-        courses = courseModel.search(
+        courses = courseService.search(
             searchQuery = searchQuery
         );
     }
