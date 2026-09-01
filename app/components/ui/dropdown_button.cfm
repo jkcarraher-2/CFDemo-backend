@@ -53,18 +53,35 @@
 
         <!--- Menu --->
         <cfloop array="#attributes.options#" index="option">
-            <a
-                href="<cfoutput>#encodeForHtmlAttribute(option.href)#</cfoutput>"
-                class="
-                    relative block z-10 px-4 py-2
-                    text-body-blue text-sm whitespace-nowrap
-                    bg-white
-                    hover:bg-body-blue hover:text-white
-                    transition-colors duration-100
-                "
-            >
-                <cfoutput>#encodeForHtml(option.text)#</cfoutput>
-            </a>
+            <cfif structKeyExists(option, "href")>
+                <a
+                    href="<cfoutput>#encodeForHtmlAttribute(option.href)#</cfoutput>"
+                    class="
+                        relative block z-10 px-4 py-2
+                        text-body-blue text-sm whitespace-nowrap
+                        bg-white
+                        hover:bg-body-blue hover:text-white
+                        transition-colors duration-100
+                    "
+                >
+                    <cfoutput>#encodeForHtml(option.text)#</cfoutput>
+                </a>
+            <cfelseif structKeyExists(option, "action") >
+                <button
+                    type="button"
+                    data-action-url="<cfoutput>#encodeForHtmlAttribute(option.action)#</cfoutput>"
+                    class="
+                        relative block z-10 w-full px-4 py-2
+                        text-left
+                        text-body-blue text-sm whitespace-nowrap
+                        bg-white
+                        hover:bg-body-blue hover:text-white
+                        transition-colors duration-100
+                    "
+                >
+                    <cfoutput>#encodeForHtml(option.text)#</cfoutput>
+                </button>
+            </cfif>
         </cfloop>
     </div>
 

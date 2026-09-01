@@ -1,6 +1,13 @@
 <cfimport prefix="ui" taglib="/components/ui">
 <cfparam name="attributes.course">
 
+<cfscript>
+    function enrollCourse() {
+        courseController = new models.controllers.courseController();
+        courseController.enroll(attributes.course.id)
+    }
+</cfscript>
+
 <cfoutput>
     <article class="overflow-hidden rounded-md border border-gray-400 bg-white shadow-sm">
 
@@ -39,7 +46,7 @@
                         },
                         {
                             text: 'Enroll',
-                            href: '/courses/enroll/#encodeForHtmlAttribute(attributes.course.id)#'
+                            action: '/courses/enroll/#encodeForHTMLAttribute(attributes.course.id)#'
                         }
                     ]#"
                     class="inline-flex shrink-0 justify-center items-center"
