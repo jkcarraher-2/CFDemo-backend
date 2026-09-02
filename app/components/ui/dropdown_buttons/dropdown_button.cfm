@@ -3,7 +3,7 @@
 <cfoutput>
     <button
         type="button"
-        onclick="enrollInCourse(1)"
+        onclick="#attributes.onclick#"
         class="
             relative block z-10 w-full px-4 py-2
             text-left

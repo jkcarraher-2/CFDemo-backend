@@ -2,7 +2,7 @@
 <cfimport prefix="button" taglib="/components/ui/dropdown_buttons">
 
 <cfparam name="attributes.course">
-<cfparam name="attributes.enrollFunctionCall" type="string" default="">
+<cfparam name="attributes.onEnroll" type="string" default="">
 
 <cfoutput>
     <article class="overflow-hidden rounded-md border border-gray-400 bg-white shadow-sm">
@@ -36,8 +36,7 @@
                 <ui:dropdown text="Actions">
                     <button:dropdown_button 
                         text="Enroll"
-                        onclick="#encodeForHTMLAttribute(attributes.enrollFunctionCall)#"
-                        <!--- action="rest/api/enrollments/create?id=#encodeForHTMLAttribute(attributes.course.id)#" --->
+                        onclick="#encodeForHTMLAttribute(attributes.onEnroll)#"
                     >
                     <button:dropdown_link 
                         text="View"

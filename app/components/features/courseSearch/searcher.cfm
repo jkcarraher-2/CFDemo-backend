@@ -22,6 +22,7 @@
         }
     }
 </script>
+
 <cfscript>
     searchQuery = trim(form.query ?: "");
     courses = queryNew("");
@@ -69,7 +70,7 @@
                                     units: units,
                                     description: description
                                 }#"
-                                enrollFunctionCall="enrollInCourse(1)"
+                                onEnroll="enrollInCourse(#id#)"
                             >
                         </cfloop>
                     </div>

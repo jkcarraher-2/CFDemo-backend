@@ -30,7 +30,7 @@
                 status=201,
                 content= serializeJSON({
                     success = true,
-                    message = "Successfully enrolled in course."
+                    message = "Successfully enrolled user #request.userID# in course #courseId#."
                 })
             })>
             <cfreturn >
