@@ -1,12 +1,8 @@
 <cfimport prefix="ui" taglib="/components/ui">
-<cfparam name="attributes.course">
+<cfimport prefix="button" taglib="/components/ui/dropdown_buttons">
 
-<cfscript>
-    function enrollCourse() {
-        courseController = new models.controllers.courseController();
-        courseController.enroll(attributes.course.id)
-    }
-</cfscript>
+<cfparam name="attributes.course">
+<cfparam name="attributes.enrollFunctionCall" type="string" default="">
 
 <cfoutput>
     <article class="overflow-hidden rounded-md border border-gray-400 bg-white shadow-sm">
@@ -37,20 +33,17 @@
                     </div>
                 </div>
 
-                <ui:dropdown_button
-                    text="Actions"
-                    options="#[
-                        {
-                            text: 'View Course',
-                            href: '/courses/#encodeForHtmlAttribute(attributes.course.id)#'
-                        },
-                        {
-                            text: 'Enroll',
-                            action: 'rest/api/enrollments/create?id=#encodeForHTMLAttribute(attributes.course.id)#'
-                        }
-                    ]#"
-                    class="inline-flex shrink-0 justify-center items-center"
-                >
+                <ui:dropdown text="Actions">
+                    <button:dropdown_button 
+                        text="Enroll"
+                        onclick="#encodeForHTMLAttribute(attributes.enrollFunctionCall)#"
+                        <!--- action="rest/api/enrollments/create?id=#encodeForHTMLAttribute(attributes.course.id)#" --->
+                    >
+                    <button:dropdown_link 
+                        text="View"
+                        href="/courses/#encodeForHtmlAttribute(attributes.course.id)#"
+                    >
+                </ui:dropdown>
             </div>
         </div>
 

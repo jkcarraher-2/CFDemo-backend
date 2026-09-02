@@ -1,20 +1,40 @@
 <cfimport prefix="courseSearch" taglib="/components/features/courseSearch">
+<script>
+    async function enrollInCourse(courseId) {
+        try {
+            const response = await fetch(
+                `rest/api/enrollments/create?id=${courseId}`,
+                {
+                    method: "POST"
+                }
+            );
 
-<!--- COURSE SEARCH COMPONENT --->
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
 
+            const result = await response.json();
+
+            console.log("Enrollment created:", result);
+
+        } catch (error) {
+            console.error("Failed to enroll:", error);
+        }
+    }
+</script>
 <cfscript>
     searchQuery = trim(form.query ?: "");
     courses = queryNew("");
 
     if (len(searchQuery)) {
         courseService = new models.services.courseService();
-
         courses = courseService.search(
             searchQuery = searchQuery
         );
     }
 </cfscript>
 
+<!--- COURSE SEARCH COMPONENT --->
 <cfoutput>
     <div class="w-full rounded-md border border-gray-300 bg-amber-200 items-center gap-2">
         <div class="h-[39px] rounded-t-md border-b border-amber-900 px-2 flex items-center">
@@ -30,6 +50,9 @@
             <courseSearch:searchBar
                 query="#searchQuery#"
             >
+            <button onclick="enrollInCourse(1)" >
+                Test
+            </button>
 
             <!--- Results --->
             <cfif len(searchQuery)>
@@ -46,6 +69,7 @@
                                     units: units,
                                     description: description
                                 }#"
+                                enrollFunctionCall="enrollInCourse(1)"
                             >
                         </cfloop>
                     </div>
@@ -56,7 +80,6 @@
                         </p>
                     <div>
                 </cfif>
-
             </cfif>
         </div>
     </div>

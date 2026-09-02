@@ -3,15 +3,21 @@
     <cffunction
         name="createEnrollment"
         access="remote"
-        returnType="any"
+        returntype="string"
         httpMethod="POST"
-        restPath="create">
+        restPath="create"
+        produces="application/json"
+    >
         <cftry>
             <cfset var courseId = url.id>
             
             <cfif NOT isUserLoggedIn() >
                 <cfset restSetResponse({
-                    status=401
+                    status=401,
+                    content = serializeJSON({
+                        success = false,
+                        message = "You must be logged in."
+                    })
                 })>
                 <cfreturn>
             </cfif>
@@ -21,14 +27,22 @@
             
             <!--- SUCCESS --->
             <cfset restSetResponse({
-                status=201
+                status=201,
+                content= serializeJSON({
+                    success = true,
+                    message = "Successfully enrolled in course."
+                })
             })>
-            <cfreturn>
+            <cfreturn >
 
             <cfcatch>
                 <!--- ERROR --->
                 <cfset restSetResponse({
-                    status = 500
+                    status = 500,
+                    content = serializeJSON({
+                        success = false,
+                        message = "Failed to enroll in course."
+                    })
                 })>
             </cfcatch>
         </cftry>

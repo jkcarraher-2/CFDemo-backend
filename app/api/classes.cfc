@@ -43,7 +43,7 @@
 
             <cfreturn serializeJSON(classes)>
             <cfcatch>
-                 <cfreturn { "error": cfcatch.message, "detail": cfcatch.detail }>
+                 <cfreturn serializeJSON({ "error": cfcatch.message, "detail": cfcatch.detail })>
             </cfcatch>
         </cftry>
     </cffunction>

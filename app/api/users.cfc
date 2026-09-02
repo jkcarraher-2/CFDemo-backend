@@ -42,7 +42,7 @@
             <cfreturn serializeJSON(users)>
 
             <cfcatch>
-                <cfreturn { "error": cfcatch.message, "detail": cfcatch.detail }>
+                <cfreturn serializeJSON({ "error": cfcatch.message, "detail": cfcatch.detail })>
             </cfcatch>
         </cftry>
     </cffunction>
@@ -86,20 +86,20 @@
             <cfset restSetResponse({
                 status=201
             })>
-            <cfreturn {
+            <cfreturn serializeJSON({
                 "id": qNewUser.id,
                 "kerberos": qNewUser.kerberos,
                 "email": qNewUser.email,
                 "first_name": qNewUser.first_name,
                 "last_name": qNewUser.last_name
-            }>
+            })>
 
             <cfcatch>
                 <!--- ERROR --->
                 <cfset restSetResponse({
                     status = 500
                 })>
-                <cfreturn { error = true, message = cfcatch.message, detail=cfcatch.detail }>
+                <cfreturn serializeJSON({ error = true, message = cfcatch.message, detail=cfcatch.detail })>
             </cfcatch>
         </cftry>
         
