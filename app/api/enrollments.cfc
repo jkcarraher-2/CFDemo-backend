@@ -11,7 +11,7 @@
             
             <cfif NOT isUserLoggedIn() >
                 <cfset restSetResponse({
-                    status=401,
+                    status=401
                 })>
                 <cfreturn>
             </cfif>
@@ -28,7 +28,7 @@
             <cfcatch>
                 <!--- ERROR --->
                 <cfset restSetResponse({
-                    status = 500,
+                    status = 500
                 })>
             </cfcatch>
         </cftry>
