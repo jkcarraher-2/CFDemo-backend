@@ -12,22 +12,24 @@
                 headers: { "Content-Type": "application/json" }
             });
 
-            if (!response.ok) {
-                throw new Error(`Server returned HTTP status ${response.status}`);
-            }
-
             const result = await response.json();
 
-            if (result.success === false) {
-                showError(errorContainer, result.message || "Enrollment failed.");
+            if (!response.ok) {
+                showError(
+                    errorContainer,
+                    result.message || 'Unable to enroll in course.'
+                );
                 return;
             }
 
             console.log("Enrollment created:", result);
 
         } catch (error) {
-            showError(errorContainer, error.message || "Failed to connect to the server.");
-            console.error("Failed to enroll:", error);
+            console.error("Enrollment request failed:", error);
+            showError(
+                errorContainer, 
+                'Unable to complete enrollment. Please try again.'
+            );
         }
     }
 </script>

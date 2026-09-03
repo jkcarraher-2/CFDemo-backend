@@ -15,8 +15,7 @@
                 <cfset restSetResponse({
                     status=401,
                     content = serializeJSON({
-                        success = false,
-                        message = "You must be logged in."
+                        "message" = "You must be logged in to enroll in a course."
                     })
                 })>
                 <cfreturn>
@@ -29,8 +28,7 @@
             <cfset restSetResponse({
                 status=201,
                 content= serializeJSON({
-                    success = true,
-                    message = "Successfully enrolled user #request.userID# in course #courseId#."
+                    "message" = "Successfully enrolled user #request.userID# in course #courseId#."
                 })
             })>
             <cfreturn >
@@ -40,8 +38,8 @@
                 <cfset restSetResponse({
                     status = 500,
                     content = serializeJSON({
-                        success = false,
-                        message = "Failed to enroll in course."
+                        "message" = cfcatch.message,
+                        "detail": cfcatch.detail
                     })
                 })>
             </cfcatch>
