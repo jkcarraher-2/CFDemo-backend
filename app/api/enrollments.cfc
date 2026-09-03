@@ -31,7 +31,7 @@
                     "message" = "Successfully enrolled user #request.userID# in course #courseId#."
                 })
             })>
-            <cfreturn >
+            <cfreturn>
 
             <cfcatch>
                 <!--- ERROR --->

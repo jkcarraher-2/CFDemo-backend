@@ -1,4 +1,5 @@
 <cfcomponent rest="true" restPath="users">
+    <!--- TEST --->
     <cffunction
         name="test"
         access="remote"
@@ -76,23 +77,11 @@
                 )
             </cfquery>
 
-            <cfquery name="qNewUser" datasource="sqlite">
-                SELECT id, kerberos, email, first_name, last_name
-                FROM users
-                WHERE id = last_insert_rowid()
-            </cfquery>
-
             <!--- SUCCESS --->
             <cfset restSetResponse({
                 status=201
             })>
-            <cfreturn serializeJSON({
-                "id": qNewUser.id,
-                "kerberos": qNewUser.kerberos,
-                "email": qNewUser.email,
-                "first_name": qNewUser.first_name,
-                "last_name": qNewUser.last_name
-            })>
+            <cfreturn>
 
             <cfcatch>
                 <!--- ERROR --->
@@ -102,7 +91,5 @@
                 <cfreturn serializeJSON({ error = true, message = cfcatch.message, detail=cfcatch.detail })>
             </cfcatch>
         </cftry>
-        
     </cffunction>
-
 </cfcomponent>

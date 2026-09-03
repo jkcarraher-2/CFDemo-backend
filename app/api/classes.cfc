@@ -1,4 +1,5 @@
 <cfcomponent rest="true" restPath="classes">
+    <!--- TEST --->
     <cffunction
         name="test"
         access="remote"
