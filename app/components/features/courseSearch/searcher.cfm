@@ -1,23 +1,32 @@
 <cfimport prefix="courseSearch" taglib="/components/features/courseSearch">
+
 <script>
     async function enrollInCourse(courseId) {
+        // Define the div where we'll be displaying errors
+        const errorContainer = document.getElementById(`error-view-${courseId}`);
+        errorContainer.innerHTML = '';
+
         try {
-            const response = await fetch(
-                `rest/api/enrollments/create?id=${courseId}`,
-                {
-                    method: "POST"
-                }
-            );
+            const response = await fetch(`rest/api/enrollments/create?id=${courseId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            });
 
             if (!response.ok) {
-                throw new Error(`Request failed: ${response.status}`);
+                throw new Error(`Server returned HTTP status ${response.status}`);
             }
 
             const result = await response.json();
 
+            if (result.success === false) {
+                showError(errorContainer, result.message || "Enrollment failed.");
+                return;
+            }
+
             console.log("Enrollment created:", result);
 
         } catch (error) {
+            showError(errorContainer, error.message || "Failed to connect to the server.");
             console.error("Failed to enroll:", error);
         }
     }
@@ -51,15 +60,15 @@
             <courseSearch:searchBar
                 query="#searchQuery#"
             >
-            <button onclick="enrollInCourse(1)" >
-                Test
-            </button>
 
             <!--- Results --->
             <cfif len(searchQuery)>
                 <cfif courses.recordCount GT 0>
                     <div class="space-y-2">
                         <cfloop query="courses">
+                            <div id="error-view-#id#">
+
+                            </div>
                             <courseSearch:courseItem
                                 course="#{
                                     id: id,
