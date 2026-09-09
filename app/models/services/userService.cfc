@@ -1,12 +1,12 @@
 component {
     function exists(required integer userId) {
-        var userRepo = new models.repos.userRepo();
-        return userRepo.get(userId).recordCount > 0;
+        var userTable = new models.daos.sqlite.userTable();
+        return userTable.get(userId).recordCount > 0;
     }
 
     function findByEmail(required string email) {
-        var userRepo = new models.repos.userRepo();
-        var result = userRepo.findByEmail(arguments.email);
+        var userTable = new models.daos.sqlite.userTable();
+        var result = userTable.findByEmail(arguments.email);
 
         // User NOT FOUND
         if (result.recordCount == 0) {

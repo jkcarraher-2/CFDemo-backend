@@ -19,7 +19,7 @@
         <!--- Search Button --->
         <button
             type="submit"
-            class="rounded-r-md bg-linear-to-t from-btn-blue-t to-btn-blue-b px-2.5 py-1 text-sm font-normal text-white border border-btn-blue-light shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] hover:from-btn-blue-light hover:to-btn-blue-light"
+            class="rounded-r-md bg-linear-to-t from-btn-blue-t to-btn-blue-b px-2.5 py-1 text-sm font-normal text-white border border-btn-blue-light cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] hover:from-btn-blue-light hover:to-btn-blue-light"
         >
             SEARCH
         </button>

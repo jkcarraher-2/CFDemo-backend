@@ -1,27 +1,44 @@
 component {
     function exists(required integer courseId) {
-        var courseRepo = new models.repos.courseRepo();
-        return courseRepo.get(courseId).recordCount > 0;
+        var courseTable = new models.daos.sqlite.courseTable();
+        return courseTable.get(courseId).recordCount > 0;
     }
 
     function search(required string searchQuery) {
-        var courseRepo = new models.repos.courseRepo();
+        var courseTable = new models.daos.sqlite.courseTable();
 
-        return courseRepo.search( searchQuery )
+        return courseTable.search( searchQuery )
     }
 
     function enroll(required integer userId, required integer courseId) {
         var userService = new models.services.userService();
-
-        if ( NOT this.exists(courseId) ) {
-            return;
-        }
-        if ( NOT userService.exists(userId) ) {
-            return;
-        }
-
-        var enrollmentRepo = new models.repos.enrollmentRepo();
         
-        return enrollmentRepo.enroll(userId, courseId);
+        // Course doesn't exist
+        if ( NOT this.exists(arguments.courseId) ) {
+            throw(
+                type = "Enrollment.CourseNotFound",
+                message = "Course not found."
+            );
+        }
+
+        // User doesn't exist
+        if ( NOT userService.exists(arguments.userId) ) {
+            throw(
+                type = "Enrollment.UserNotFound",
+                message = "User not found."
+            );
+        }
+
+        var enrollmentTable = new models.daos.sqlite.enrollmentTable();
+        
+        // Already enrolled
+        if ( enrollmentTable.exists(arguments.userId, arguments.courseId) ) {
+            throw(
+                type = "Enrollment.AlreadyExists",
+                message = "User is already enrolled in this course."
+            );
+        }
+
+        return enrollmentTable.enroll(arguments.userId, arguments.courseId);
     }
 }

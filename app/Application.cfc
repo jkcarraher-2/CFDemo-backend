@@ -1,6 +1,8 @@
 component {
     this.name = "CFDemo";
     this.datasource = "sqlite";
+    // Enable "Null"
+    this.enableNullSupport = true;
     // Login Setup
     this.sessionManagement = true;
     this.loginStorage = "session";

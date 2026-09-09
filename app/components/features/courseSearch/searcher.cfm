@@ -17,7 +17,7 @@
             if (!response.ok) {
                 showError(
                     errorContainer,
-                    result.message ||'Unable to enroll in course.',
+                    result.message || 'Unable to enroll in course.',
                     result.detail
                 );
                 return;
