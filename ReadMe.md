@@ -3,7 +3,7 @@
 The goal of this project is to provide help me walk through setting up features of a modern CF application, seeing how features with this framework compare to Node.js and equivelant backend frameworks. 
 
 ## System Architecture
-<img width="750" alt="Screenshot 2026-08-24 at 7 27 36 AM" src="https://github.com/user-attachments/assets/f5dbdf76-3e77-4501-8c13-978732a7b2be" />
+<img height="750" alt="Screenshot 2026-10-12 at 11 21 44 AM" src="https://github.com/user-attachments/assets/a663bb92-77c2-4531-8cff-7a47cd4a1698" />
 
 ## Setup Instructions
 1. To run this application locally, first create a `.env` file, emulating settings in the `.env.example`.
